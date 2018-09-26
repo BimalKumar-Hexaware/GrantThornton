@@ -7,7 +7,7 @@ const PORT = process.env.PORT || 5000;
 
 app.post('/api/webhook', (req, res) => {
     console.log("Dialogflow request body", JSON.stringify(req.body));
-    console.log("Headers", req.headers.referrer || req.headers.referer);
+    console.log("Headers", req.headers);
     console.log("DF Action", req.body.queryResult.action);
     switch (req.body.queryResult.action) {
         case "input.welcome":
@@ -54,7 +54,7 @@ app.post('/api/webhook', (req, res) => {
                         "quickReplies": {
                             "title": "sdsds",
                             "quickReplies": [
-                                "dd"
+                                "Qr 1"
                             ]
                         },
                         "platform": "SKYPE"
