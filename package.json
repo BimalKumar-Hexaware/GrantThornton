@@ -1,0 +1,18 @@
+{
+  "name": "grantthornton",
+  "version": "1.0.0",
+  "description": "This is a POC for the client GT, for Skype chatbot. Involves Microsoft Dynamics 365 and Linkedin Sales Navigator integration.",
+  "main": "index.js",
+  "scripts": {
+    "start": "forever start index.js",
+    "stop": "forever stop index.js",
+    "devstart":"nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Bimal Kumar H, Ashwin G",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.3",
+    "nodemon": "^1.18.4"
+  }
+}
