@@ -52,11 +52,22 @@ app.post('/api/webhook', (req, res) => {
                     {
                         "quickReplies": {
                             "title": "sdsds",
-                            "title": "dadasa",
-                            "title": "dsdsd"
+                            "quickReplies": [
+                                "dd"
+                            ]
+                        },
+                        "platform": "SKYPE"
+                    },
+                    {
+                        "quickReplies": {
+                            "title": "asasas",
+                            "quickReplies": [
+                                "sasas"
+                            ]
                         },
                         "platform": "SKYPE"
                     }
+                ]
                 ]
             });
             break;
