@@ -8,12 +8,12 @@ const PORT = process.env.PORT || 5000;
 app.post('/api/webhook', (req, res) => {
     console.log("Dialogflow request body", JSON.stringify(req.body));
     res.json({
-        "text": {
-            "text": [
-                "hi this is skype welcome"
-            ]
-        },
-        "platform": "SKYPE"
+        "messages": [
+            {
+                "speech": "Text response",
+                "type": 0
+            }
+        ]
     });
 });
 
