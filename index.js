@@ -57,15 +57,6 @@ app.post('/api/webhook', (req, res) => {
                             ]
                         },
                         "platform": "SKYPE"
-                    },
-                    {
-                        "quickReplies": {
-                            "title": "asasas",
-                            "quickReplies": [
-                                "sasas"
-                            ]
-                        },
-                        "platform": "SKYPE"
                     }
                 ]
             });
