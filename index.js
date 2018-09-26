@@ -7,7 +7,7 @@ const PORT = 5000;
 
 app.post('/api/webhook', (req, res) => {
     console.log("Dialogflow request body", JSON.stringify(req.body));
-    res.JSON({
+    res.json({
         "text": {
             "text": [
                 "hi this is skype welcome"
