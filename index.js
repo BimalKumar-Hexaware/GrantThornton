@@ -7,18 +7,47 @@ const PORT = process.env.PORT || 5000;
 
 app.post('/api/webhook', (req, res) => {
     console.log("Dialogflow request body", JSON.stringify(req.body));
-    res.json({
-        "fulfillmentMessages": [
-            {
-                "text": {
-                    "text": [
-                        "s"
-                    ]
-                },
-                "platform": "SKYPE"
-            }
-        ]
-    });
+    console.log("DF Action", req.body.queryResult.action);
+    switch (req.body.queryResult.action) {
+        case "input.welcome":
+            res.json({
+                "fulfillmentMessages": [
+                    {
+                        "text": {
+                            "text": [
+                                "this is a welcome message"
+                            ]
+                        },
+                        "platform": "SKYPE"
+                    }
+                ]
+            });
+            break;
+        case "testcards":
+            res.json({
+                "fulfillmentMessages": [
+                    {
+                        "card": {
+                            "title": "Demo card title",
+                            "subtitle": "card sub title",
+                            "buttons": [
+                                {
+                                    "text": "first button",
+                                    "postback": "first_payload"
+                                },
+                                {
+                                    "text": "second button",
+                                    "postback": "second_payload"
+                                }
+                            ]
+                        },
+                        "platform": "SKYPE"
+                    }
+                ]
+            });
+            break;
+    }
+
 });
 
 app.listen(PORT, () => {
