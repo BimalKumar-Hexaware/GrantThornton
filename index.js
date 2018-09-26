@@ -32,14 +32,28 @@ app.post('/api/webhook', (req, res) => {
                             "subtitle": "card sub title",
                             "buttons": [
                                 {
-                                    "text": "first button",
+                                    "text": "First button",
                                     "postback": "first_payload"
                                 },
                                 {
-                                    "text": "second button",
+                                    "text": "Second button",
                                     "postback": "second_payload"
                                 }
                             ]
+                        },
+                        "platform": "SKYPE"
+                    }
+                ]
+            });
+            break;
+        case "testquickreply":
+            res.json({
+                "fulfillmentMessages": [
+                    {
+                        "quickReplies": {
+                            "title": "sdsds",
+                            "title": "dadasa",
+                            "title": "dsdsd"
                         },
                         "platform": "SKYPE"
                     }
