@@ -68,7 +68,6 @@ app.post('/api/webhook', (req, res) => {
                         "platform": "SKYPE"
                     }
                 ]
-                ]
             });
             break;
     }
