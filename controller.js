@@ -11,18 +11,19 @@ module.exports = {
                 parameters = req.body.queryResult.outputContexts[contextCount - 1].parameters;
                 console.log("Parameters", parameters);
                 return helper.callDynamicsAPI(parameters).then((result) => {
-                    res.json({
-                        "fulfillmentMessages": [
-                            {
-                                "text": {
-                                    "text": [
-                                        "api call success"
-                                    ]
-                                },
-                                "platform": "SKYPE"
-                            }
-                        ]
+                    var response = {
+                        "fulfillmentMessages": []
+                    };
+                    _.forEach(result.value, function (value, key) {
+                        response.fulfillmentMessages.push({
+                            "card": {
+                                "title": value.name,
+                                "subtitle": "Revenue " + value.estimatedvalue
+                            },
+                            "platform": "SKYPE"
+                        });
                     });
+                    res.json(response);
                 }).catch((err) => {
                     console.log("some error occured");
                     res.json({
