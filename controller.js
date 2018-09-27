@@ -7,17 +7,33 @@ module.exports = {
         console.log("Parameters", parameters);
         switch (req.body.queryResult.action) {
             case "gt.userquery-applyfilter-date-supplydate":
-                res.json({
-                    "fulfillmentMessages": [
-                        {
-                            "text": {
-                                "text": [
-                                    "push to api"
-                                ]
-                            },
-                            "platform": "SKYPE"
-                        }
-                    ]
+                return helper.callDynamicsAPI(parameters).then((result) => {
+                    res.json({
+                        "fulfillmentMessages": [
+                            {
+                                "text": {
+                                    "text": [
+                                        "api call success"
+                                    ]
+                                },
+                                "platform": "SKYPE"
+                            }
+                        ]
+                    });
+                }).catch((err) => {
+                    console.log("some error occured");
+                    res.json({
+                        "fulfillmentMessages": [
+                            {
+                                "text": {
+                                    "text": [
+                                        "Sorry, something went wrong"
+                                    ]
+                                },
+                                "platform": "SKYPE"
+                            }
+                        ]
+                    });
                 });
                 break;
             case "gt.userquery-applyfilter-revenue-ranges":
