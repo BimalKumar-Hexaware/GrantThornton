@@ -18,7 +18,7 @@ var self = {
                     console.log("callDynamicsAPI err", error);
                     reject("Something went wrong when processing your request. Please try again.");
                 }
-                console.log("callDynamicsAPI result body", body);
+                console.log("callDynamicsAPI result body", body.value);
                 resolve(body);
             });
         });
