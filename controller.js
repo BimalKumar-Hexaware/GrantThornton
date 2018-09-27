@@ -16,17 +16,28 @@ module.exports = {
                     var response = {
                         "fulfillmentMessages": []
                     };
-                    _.forEach(result.value, function (value, key) {
-                        if (key < 3) {
-                            response.fulfillmentMessages.push({
-                                "card": {
-                                    "title": value.name,
-                                    "subtitle": "Revenue " + value.estimatedvalue
-                                },
-                                "platform": "SKYPE"
-                            });
-                        }
-                    });
+                    if (result.value.length) {
+                        _.forEach(result.value, function (value, key) {
+                            if (key < 3) {
+                                response.fulfillmentMessages.push({
+                                    "card": {
+                                        "title": value.name,
+                                        "subtitle": "Revenue " + value.estimatedvalue
+                                    },
+                                    "platform": "SKYPE"
+                                });
+                            }
+                        });
+                    } else {
+                        response.fulfillmentMessages.push({
+                            "text": {
+                                "text": [
+                                    "Unable to find opportunities."
+                                ]
+                            },
+                            "platform": "SKYPE"
+                        });
+                    }
                     response.fulfillmentMessages.push({
                         "text": {
                             "text": [
@@ -61,17 +72,28 @@ module.exports = {
                     var response = {
                         "fulfillmentMessages": []
                     };
-                    _.forEach(result.value, function (value, key) {
-                        if (key < 3) {
-                            response.fulfillmentMessages.push({
-                                "card": {
-                                    "title": value.name,
-                                    "subtitle": "Revenue " + value.estimatedvalue
-                                },
-                                "platform": "SKYPE"
-                            });
-                        }
-                    });
+                    if (result.value.length) {
+                        _.forEach(result.value, function (value, key) {
+                            if (key < 3) {
+                                response.fulfillmentMessages.push({
+                                    "card": {
+                                        "title": value.name,
+                                        "subtitle": "Revenue " + value.estimatedvalue
+                                    },
+                                    "platform": "SKYPE"
+                                });
+                            }
+                        });
+                    } else {
+                        response.fulfillmentMessages.push({
+                            "text": {
+                                "text": [
+                                    "Unable to find opportunities."
+                                ]
+                            },
+                            "platform": "SKYPE"
+                        });
+                    }
                     response.fulfillmentMessages.push({
                         "text": {
                             "text": [
