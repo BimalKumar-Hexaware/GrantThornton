@@ -7,7 +7,6 @@ const PORT = process.env.PORT || 5000;
 
 app.post('/api/webhook', (req, res) => {
     console.log("Dialogflow request body", JSON.stringify(req.body));
-    console.log("Headers", req.headers);
     console.log("DF Action", req.body.queryResult.action);
     switch (req.body.queryResult.action) {
         case "input.welcome":
