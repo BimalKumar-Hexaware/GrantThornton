@@ -1,4 +1,5 @@
 var helper = require('./helper');
+var _ = require('lodash');
 module.exports = {
     "webhookRequestHandler": (req, res) => {
         console.log("Dialogflow request body", JSON.stringify(req.body));
@@ -21,7 +22,7 @@ module.exports = {
                             "platform": "SKYPE"
                         }]
                     };
-                    /*_.forEach(result.value, function (value, key) {
+                    _.forEach(result.value, function (value, key) {
                         response.fulfillmentMessages.push({
                             "card": {
                                 "title": value.name,
@@ -29,7 +30,7 @@ module.exports = {
                             },
                             "platform": "SKYPE"
                         });
-                    });*/
+                    });
                     res.json(response);
                 }).catch((err) => {
                     console.log("Some error occured", err);
