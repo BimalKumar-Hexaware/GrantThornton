@@ -44,16 +44,9 @@ module.exports = {
                 console.log("Parameters", parameters);
                 return helper.callDynamicsAPI(parameters).then((result) => {
                     var response = {
-                        "fulfillmentMessages": [{
-                            "text": {
-                                "text": [
-                                    "Sorry, something went wrong"
-                                ]
-                            },
-                            "platform": "SKYPE"
-                        }]
+                        "fulfillmentMessages": []
                     };
-                    /*_.forEach(result.value, function (value, key) {
+                    _.forEach(result.value, function (value, key) {
                         response.fulfillmentMessages.push({
                             "card": {
                                 "title": value.name,
@@ -61,7 +54,7 @@ module.exports = {
                             },
                             "platform": "SKYPE"
                         });
-                    });*/
+                    });
                     res.json(response);
                 }).catch((err) => {
                     console.log("some error occured");
