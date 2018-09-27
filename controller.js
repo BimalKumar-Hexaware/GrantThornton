@@ -51,17 +51,11 @@ module.exports = {
                 parameters = req.body.queryResult.outputContexts[0].parameters;
                 console.log("Parameters", parameters);
                 return helper.callDynamicsAPI(parameters).then((result) => {
+                    console.log("callDynamicsAPI result body value", JSON.stringify(result.value));
                     var response = {
-                        "fulfillmentMessages": [{
-                            "text": {
-                                "text": [
-                                    "revemnue successs"
-                                ]
-                            },
-                            "platform": "SKYPE"
-                        }]
+                        "fulfillmentMessages": []
                     };
-                    /*_.forEach(result.value, function (value, key) {
+                    _.forEach(result.value, function (value, key) {
                         response.fulfillmentMessages.push({
                             "card": {
                                 "title": value.name,
@@ -69,7 +63,7 @@ module.exports = {
                             },
                             "platform": "SKYPE"
                         });
-                    });*/
+                    });
                     res.json(response);
                 }).catch((err) => {
                     console.log("Some error occured", err);
