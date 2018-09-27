@@ -12,15 +12,9 @@ module.exports = {
                 parameters = req.body.queryResult.outputContexts[contextCount - 1].parameters;
                 console.log("Parameters", parameters);
                 return helper.callDynamicsAPI(parameters).then((result) => {
+                    console.log("callDynamicsAPI result body value", JSON.stringify(result.value));
                     var response = {
-                        "fulfillmentMessages": [{
-                            "text": {
-                                "text": [
-                                    "Sorry, something went wrong"
-                                ]
-                            },
-                            "platform": "SKYPE"
-                        }]
+                        "fulfillmentMessages": []
                     };
                     _.forEach(result.value, function (value, key) {
                         response.fulfillmentMessages.push({
@@ -31,6 +25,7 @@ module.exports = {
                             "platform": "SKYPE"
                         });
                     });
+                    console.log("response",response);
                     res.json(response);
                 }).catch((err) => {
                     console.log("Some error occured", err);
@@ -65,6 +60,7 @@ module.exports = {
                             "platform": "SKYPE"
                         });
                     });
+                    console.log("response",response);
                     res.json(response);
                 }).catch((err) => {
                     console.log("Some error occured", err);
