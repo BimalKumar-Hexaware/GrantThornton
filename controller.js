@@ -27,6 +27,14 @@ module.exports = {
                             });
                         }
                     });
+                    response.fulfillmentMessages.push({
+                        "text": {
+                            "text": [
+                                "Is there anything else that I can help you with?"
+                            ]
+                        },
+                        "platform": "SKYPE"
+                    });
                     console.log("response", response);
                     res.json(response);
                 }).catch((err) => {
@@ -63,6 +71,14 @@ module.exports = {
                                 "platform": "SKYPE"
                             });
                         }
+                    });
+                    response.fulfillmentMessages.push({
+                        "text": {
+                            "text": [
+                                "Is there anything else that I can help you with?"
+                            ]
+                        },
+                        "platform": "SKYPE"
                     });
                     console.log("response", response);
                     res.json(response);
