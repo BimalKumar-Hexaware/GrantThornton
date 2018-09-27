@@ -12,9 +12,16 @@ module.exports = {
                 console.log("Parameters", parameters);
                 return helper.callDynamicsAPI(parameters).then((result) => {
                     var response = {
-                        "fulfillmentMessages": []
+                        "fulfillmentMessages": [{
+                            "text": {
+                                "text": [
+                                    "Sorry, something went wrong"
+                                ]
+                            },
+                            "platform": "SKYPE"
+                        }]
                     };
-                    _.forEach(result.value, function (value, key) {
+                    /*_.forEach(result.value, function (value, key) {
                         response.fulfillmentMessages.push({
                             "card": {
                                 "title": value.name,
@@ -22,7 +29,7 @@ module.exports = {
                             },
                             "platform": "SKYPE"
                         });
-                    });
+                    });*/
                     res.json(response);
                 }).catch((err) => {
                     console.log("some error occured");
@@ -31,7 +38,7 @@ module.exports = {
                             {
                                 "text": {
                                     "text": [
-                                        "Sorry, something went wrong"
+                                        "date success"
                                     ]
                                 },
                                 "platform": "SKYPE"
@@ -45,9 +52,16 @@ module.exports = {
                 console.log("Parameters", parameters);
                 return helper.callDynamicsAPI(parameters).then((result) => {
                     var response = {
-                        "fulfillmentMessages": []
+                        "fulfillmentMessages": [{
+                            "text": {
+                                "text": [
+                                    "revemnue successs"
+                                ]
+                            },
+                            "platform": "SKYPE"
+                        }]
                     };
-                    _.forEach(result.value, function (value, key) {
+                    /*_.forEach(result.value, function (value, key) {
                         response.fulfillmentMessages.push({
                             "card": {
                                 "title": value.name,
@@ -55,7 +69,7 @@ module.exports = {
                             },
                             "platform": "SKYPE"
                         });
-                    });
+                    });*/
                     res.json(response);
                 }).catch((err) => {
                     console.log("some error occured");
