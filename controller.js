@@ -32,7 +32,7 @@ module.exports = {
                     });*/
                     res.json(response);
                 }).catch((err) => {
-                    console.log("some error occured");
+                    console.log("Some error occured", err);
                     res.json({
                         "fulfillmentMessages": [
                             {
@@ -72,7 +72,7 @@ module.exports = {
                     });*/
                     res.json(response);
                 }).catch((err) => {
-                    console.log("some error occured");
+                    console.log("Some error occured", err);
                     res.json({
                         "fulfillmentMessages": [
                             {
