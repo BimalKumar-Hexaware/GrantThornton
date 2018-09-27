@@ -3,7 +3,21 @@ module.exports = {
         console.log("Dialogflow request body", JSON.stringify(req.body));
         console.log("DF Action", req.body.queryResult.action);
         switch (req.body.queryResult.action) {
-            case "gt.userquery-applyfilter-filtercriteria":
+            case "gt.userquery-applyfilter-date-supplydate":
+                res.json({
+                    "fulfillmentMessages": [
+                        {
+                            "text": {
+                                "text": [
+                                    "push to api"
+                                ]
+                            },
+                            "platform": "SKYPE"
+                        }
+                    ]
+                });
+                break;
+            case "gt.userquery-applyfilter-revenue-ranges":
                 res.json({
                     "fulfillmentMessages": [
                         {
