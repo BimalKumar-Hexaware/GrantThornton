@@ -17,15 +17,17 @@ module.exports = {
                         "fulfillmentMessages": []
                     };
                     _.forEach(result.value, function (value, key) {
-                        response.fulfillmentMessages.push({
-                            "card": {
-                                "title": value.name,
-                                "subtitle": "Revenue " + value.estimatedvalue
-                            },
-                            "platform": "SKYPE"
-                        });
+                        if (key < 3) {
+                            response.fulfillmentMessages.push({
+                                "card": {
+                                    "title": value.name,
+                                    "subtitle": "Revenue " + value.estimatedvalue
+                                },
+                                "platform": "SKYPE"
+                            });
+                        }
                     });
-                    console.log("response",response);
+                    console.log("response", response);
                     res.json(response);
                 }).catch((err) => {
                     console.log("Some error occured", err);
@@ -52,15 +54,17 @@ module.exports = {
                         "fulfillmentMessages": []
                     };
                     _.forEach(result.value, function (value, key) {
-                        response.fulfillmentMessages.push({
-                            "card": {
-                                "title": value.name,
-                                "subtitle": "Revenue " + value.estimatedvalue
-                            },
-                            "platform": "SKYPE"
-                        });
+                        if (key < 3) {
+                            response.fulfillmentMessages.push({
+                                "card": {
+                                    "title": value.name,
+                                    "subtitle": "Revenue " + value.estimatedvalue
+                                },
+                                "platform": "SKYPE"
+                            });
+                        }
                     });
-                    console.log("response",response);
+                    console.log("response", response);
                     res.json(response);
                 }).catch((err) => {
                     console.log("Some error occured", err);
