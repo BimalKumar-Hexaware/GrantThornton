@@ -66,7 +66,7 @@ module.exports = {
                 break;
             case "gt.userquery-applyfilter-revenue-ranges":
                 parameters = req.body.queryResult.outputContexts[0].parameters;
-                var index = _.findIndex(tv, { "name": "projects/grantthornton-f364a/agent/sessions/4a39af06-7e72-4582-b6d1-9e73c4bf2610/contexts/selected_status" });
+                var index = _.findIndex(req.body.queryResult.outputContexts, { "name": "projects/grantthornton-f364a/agent/sessions/4a39af06-7e72-4582-b6d1-9e73c4bf2610/contexts/selected_status" });
 
                 console.log("test",req.body.queryResult.outputContexts[index].parameters);
                 console.log("Parameters", parameters);
