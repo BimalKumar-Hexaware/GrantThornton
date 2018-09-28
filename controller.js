@@ -64,8 +64,12 @@ module.exports = {
                     });
                 });
                 break;
-            case "gt.userquery-applyfilter-revenue-ranges":
-                parameters = req.body.queryResult.outputContexts[0].parameters;
+            case "gt.userquery-applyfilter-revenue-ranges":                
+                _.forEach(req.body.queryResult.outputContexts, function (value, key) {
+                    if(_.includes(value.name,'selected_status')) {
+                        parameters = value.parameters;
+                    }
+                });
                 console.log("Parameters", parameters);
                 return helper.callDynamicsAPI(parameters).then((result) => {
                     console.log("callDynamicsAPI result body value", JSON.stringify(result.value));
