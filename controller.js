@@ -8,8 +8,11 @@ module.exports = {
 
         switch (req.body.queryResult.action) {
             case "gt.userquery-applyfilter-date-supplydate":
-                var contextCount = req.body.queryResult.outputContexts.length;
-                parameters = req.body.queryResult.outputContexts[contextCount - 1].parameters;
+                _.forEach(req.body.queryResult.outputContexts, function (value, key) {
+                    if (_.includes(value.name, 'selected_status')) {
+                        parameters = value.parameters;
+                    }
+                });
                 console.log("Parameters", parameters);
                 return helper.callDynamicsAPI(parameters).then((result) => {
                     console.log("callDynamicsAPI result body value", JSON.stringify(result.value));
@@ -64,9 +67,9 @@ module.exports = {
                     });
                 });
                 break;
-            case "gt.userquery-applyfilter-revenue-ranges":                
+            case "gt.userquery-applyfilter-revenue-ranges":
                 _.forEach(req.body.queryResult.outputContexts, function (value, key) {
-                    if(_.includes(value.name,'selected_status')) {
+                    if (_.includes(value.name, 'selected_status')) {
                         parameters = value.parameters;
                     }
                 });
