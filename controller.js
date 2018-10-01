@@ -19,7 +19,7 @@ module.exports = {
                     var response = {
                         "fulfillmentMessages": []
                     };
-                    if (result.value.length) {
+                    if (typeof result.value !== 'undefined') {
                         _.forEach(result.value, function (value, key) {
                             if (key < 3) {
                                 response.fulfillmentMessages.push({
@@ -79,7 +79,7 @@ module.exports = {
                     var response = {
                         "fulfillmentMessages": []
                     };
-                    if (result.value.length) {
+                    if (typeof result.value !== 'undefined') {
                         _.forEach(result.value, function (value, key) {
                             if (key < 3) {
                                 response.fulfillmentMessages.push({
