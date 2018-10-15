@@ -11,13 +11,14 @@ module.exports = {
                 var oppstatus = req.body.queryResult.parameters.oppstatus;
                 console.log("oppstatus",oppstatus);
                 res.json({
-                          "followupEventInput": {
+                            "followupEventInput": {
                             "name": "filter-event",
                             "parameters": {
-                              "oppstatus": oppstatus,
-                            },
-                            "languageCode": "en-US"
-                          }
+                                "oppstatus": oppstatus,
+                             },
+                             "anguageCode": "en-US",
+                             "platform": "SKYPE"
+                            }
                         });
                 break;
             case "gt.userquery-applyfilter-date-supplydate":
