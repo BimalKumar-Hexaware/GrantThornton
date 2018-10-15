@@ -16,8 +16,7 @@ module.exports = {
                             "parameters": {
                                 "oppstatus": oppstatus,
                              },
-                             "languageCode": "en-US",
-                             "platform": "SKYPE"
+                             "languageCode": "en-US"
                             }
                         });
                 break;
