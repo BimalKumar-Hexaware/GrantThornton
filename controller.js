@@ -57,8 +57,8 @@ module.exports = {
                 console.log("Date", date);
                 if (date == "" || typeof date == "undefined") {
                     console.log("date not provided");
-                    startDate = req.body.queryResult.parameters.date;
-                    endDate = req.body.queryResult.parameters.endDate;
+                    startDate = req.body.queryResult.parameters.monthName.startDate;
+                    endDate = req.body.queryResult.parameters.monthName.endDate;
                     monthName = req.body.queryResult.parameters.monthname;
                     quarterly = req.body.queryResult.parameters.quarterly;
 
