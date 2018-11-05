@@ -1,4 +1,5 @@
 var request = require('request');
+var _ = require('lodash');
 
 var self = {
     "callDynamicsAPI": function (params) {
