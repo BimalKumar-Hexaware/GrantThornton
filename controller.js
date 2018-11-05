@@ -5,7 +5,6 @@ module.exports = {
         console.log("Dialogflow request body", JSON.stringify(req.body));
         console.log("DF Action", req.body.queryResult.action);
         var parameters = {};
-
         switch (req.body.queryResult.action) {
             case "gt.userquery-applyfilter-date-supplydate":
                 _.forEach(req.body.queryResult.outputContexts, function (value, key) {
@@ -94,24 +93,31 @@ module.exports = {
                         };
                         filterRange = "for the quarter " + quarterly;
                     }
-
-                    console.log("PARAMS", params);
-                    return helper.callDynamicsAPI(parameters).then((result) => {
-                        console.log("SKYPE RESPONSE", result);
-                        res.json(result);
-                    }).catch((err) => {
-                        console.log("ERROR", err);
-                        res.json({
-                            "text": {
-                                "text": [
-                                    "Something went wrong when processing your request. Please try again."
-                                ]
-                            },
-                            "platform": "SKYPE"
-                        });
-                    });
-                    break;
+                } else {
+                    var params = {
+                        "date": date,
+                        "oppstatus": oppStatus,
+                        "filters": 'createdon'
+                    };
+                    //filterRange = "for the date " + quarterly;
+                    filterRange = "for the date ";
                 }
+                console.log("PARAMS", params);
+                return helper.callDynamicsAPI(parameters).then((result) => {
+                    console.log("SKYPE RESPONSE", result);
+                    res.json(result);
+                }).catch((err) => {
+                    console.log("ERROR", err);
+                    res.json({
+                        "text": {
+                            "text": [
+                                "Something went wrong when processing your request. Please try again."
+                            ]
+                        },
+                        "platform": "SKYPE"
+                    });
+                });
+                break;
         }
     }
 };
