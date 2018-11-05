@@ -9,16 +9,16 @@ module.exports = {
         switch (req.body.queryResult.action) {
             case "gt.getoppsbystatus":
                 var oppstatus = req.body.queryResult.parameters.oppstatus;
-                console.log("oppstatus",oppstatus);
+                console.log("oppstatus", oppstatus);
                 res.json({
-                            "followupEventInput": {
-                            "name": "filter-event",
-                            "parameters": {
-                                "oppstatus": oppstatus,
-                             },
-                             "languageCode": "en-US"
-                            }
-                        });
+                    "followupEventInput": {
+                        "name": "filter-event",
+                        "parameters": {
+                            "oppstatus": oppstatus,
+                        },
+                        "languageCode": "en-US"
+                    }
+                });
                 break;
             case "gt.userquery-applyfilter-date-supplydate":
                 _.forEach(req.body.queryResult.outputContexts, function (value, key) {
@@ -28,55 +28,17 @@ module.exports = {
                 });
                 console.log("Parameters", parameters);
                 return helper.callDynamicsAPI(parameters).then((result) => {
-                    console.log("callDynamicsAPI result body value", JSON.stringify(result.value));
-                    var response = {
-                        "fulfillmentMessages": []
-                    };
-                    if (typeof result.value !== 'undefined') {
-                        _.forEach(result.value, function (value, key) {
-                            if (key < 3) {
-                                response.fulfillmentMessages.push({
-                                    "card": {
-                                        "title": value.name,
-                                        "subtitle": "Revenue " + value.estimatedvalue
-                                    },
-                                    "platform": "SKYPE"
-                                });
-                            }
-                        });
-                    } else {
-                        response.fulfillmentMessages.push({
-                            "text": {
-                                "text": [
-                                    "Unable to find opportunities."
-                                ]
-                            },
-                            "platform": "SKYPE"
-                        });
-                    }
-                    response.fulfillmentMessages.push({
+                    console.log("SKYPE RESPONSE", result);
+                    res.json(result);
+                }).catch((err) => {
+                    console.log("ERROR", err);
+                    res.json({
                         "text": {
                             "text": [
-                                "Is there anything else that I can help you with?"
+                                "Something went wrong when processing your request. Please try again."
                             ]
                         },
                         "platform": "SKYPE"
-                    });
-                    console.log("response", response);
-                    res.json(response);
-                }).catch((err) => {
-                    console.log("Some error occured", err);
-                    res.json({
-                        "fulfillmentMessages": [
-                            {
-                                "text": {
-                                    "text": [
-                                        "date success"
-                                    ]
-                                },
-                                "platform": "SKYPE"
-                            }
-                        ]
                     });
                 });
                 break;
@@ -88,55 +50,91 @@ module.exports = {
                 });
                 console.log("Parameters", parameters);
                 return helper.callDynamicsAPI(parameters).then((result) => {
-                    console.log("callDynamicsAPI result body value", JSON.stringify(result.value));
-                    var response = {
-                        "fulfillmentMessages": []
-                    };
-                    if (typeof result.value !== 'undefined') {
-                        _.forEach(result.value, function (value, key) {
-                            if (key < 3) {
-                                response.fulfillmentMessages.push({
-                                    "card": {
-                                        "title": value.name,
-                                        "subtitle": "Revenue " + value.estimatedvalue
-                                    },
-                                    "platform": "SKYPE"
-                                });
-                            }
-                        });
-                    } else {
-                        response.fulfillmentMessages.push({
-                            "text": {
-                                "text": [
-                                    "Unable to find opportunities."
-                                ]
-                            },
-                            "platform": "SKYPE"
-                        });
-                    }
-                    response.fulfillmentMessages.push({
+                    console.log("SKYPE RESPONSE", result);
+                    res.json(result);
+                }).catch((err) => {
+                    console.log("ERROR", err);
+                    res.json({
                         "text": {
                             "text": [
-                                "Is there anything else that I can help you with?"
+                                "Something went wrong when processing your request. Please try again."
                             ]
                         },
                         "platform": "SKYPE"
                     });
-                    console.log("response", response);
-                    res.json(response);
+                });
+                break;
+            case "gt.combinedDateIntent":
+                var date = req.body.queryResult.parameters.date;
+                console.log("Date", date);
+                if (date == "" || typeof date == "undefined") {
+                    // console.log(req.data);
+                    var condition = req.slots.condition.resolutions;
+                    console.log(condition);
+                    if (condition.length === 0 || typeof condition === "undefined") {
+                        console.log("condition not provided");
+                        startDate = req.data.request.intent.slots.startDate.value;
+                        endDate = req.data.request.intent.slots.startDate.value;
+                        monthName = req.data.request.intent.slots.monthName.value;
+                        quarterly = req.slots.quarterly.resolutions;
+
+                        if ((startDate !== "" && typeof startDate !== "undefined") && (endDate !== "" && typeof endDate !== "undefined")) {
+                            var params = {
+                                "startDate": startDate,
+                                "endDate": endDate,
+                                "condition": 'inBetween',
+                                "oppstatus": oppStatus,
+                                "filters": 'createdon'
+                            };
+                            filterRange = "between" + startDate + " to " + endDate;
+                        } else if (monthName !== "" && typeof monthName !== "undefined") {
+                            var params = {
+                                "monthName": monthName,
+                                "condition": 'month',
+                                "oppstatus": oppStatus,
+                                "filters": 'createdon'
+                            };
+                            filterRange = "for the month of " + monthName;
+                        } else if (quarterly.length !== 0 && typeof quarterly !== "undefined") {
+                            var params = {
+                                "quaterType": quarterly[0].values[0].name,
+                                "condition": 'quarterly',
+                                "oppstatus": oppStatus,
+                                "filters": 'createdon'
+                            };
+                            filterRange = "for the quarter " + quarterly[0].values[0].name;
+                        }
+                    } else {
+                        console.log("condition provided")
+                        var params = {
+                            "condition": condition[0].values[0].name,
+                            "oppstatus": oppStatus,
+                            "filters": 'createdon'
+                        };
+                        filterRange = "for " + condition[0].values[0].name;
+                    }
+
+                } else {
+                    var params = {
+                        "date": date,
+                        "oppstatus": oppStatus,
+                        "filters": 'createdon'
+                    };
+                    filterRange = "on " + date;
+                }
+                console.log("PARAMS", params);
+                return helper.callDynamicsAPI(parameters).then((result) => {
+                    console.log("SKYPE RESPONSE", result);
+                    res.json(result);
                 }).catch((err) => {
-                    console.log("Some error occured", err);
+                    console.log("ERROR", err);
                     res.json({
-                        "fulfillmentMessages": [
-                            {
-                                "text": {
-                                    "text": [
-                                        "Sorry, something went wrong"
-                                    ]
-                                },
-                                "platform": "SKYPE"
-                            }
-                        ]
+                        "text": {
+                            "text": [
+                                "Something went wrong when processing your request. Please try again."
+                            ]
+                        },
+                        "platform": "SKYPE"
                     });
                 });
                 break;
