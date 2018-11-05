@@ -1,5 +1,7 @@
 var helper = require('./helper');
 var _ = require('lodash');
+var converter = require('number-to-words');
+
 module.exports = {
     "webhookRequestHandler": (req, res) => {
         console.log("Dialogflow request body", JSON.stringify(req.body));
@@ -101,6 +103,67 @@ module.exports = {
                     };
                     //filterRange = "for the date " + quarterly;
                     filterRange = "for the date ";
+                }
+                console.log("PARAMS", params);
+                return helper.callDynamicsAPI(parameters).then((result) => {
+                    console.log("SKYPE RESPONSE", result);
+                    res.json(result);
+                }).catch((err) => {
+                    console.log("ERROR", err);
+                    res.json({
+                        "text": {
+                            "text": [
+                                "Something went wrong when processing your request. Please try again."
+                            ]
+                        },
+                        "platform": "SKYPE"
+                    });
+                });
+                break;
+            case "gt.combinedRevenueIntent":
+                var oppStatus = req.body.queryResult.parameters.oppstatus;
+                var number = req.body.queryResult.parameters.number;
+                var revenuerange = req.body.queryResult.parameters.revenuerange;
+                var filterRange = '';
+                if (revenuerange == "" || typeof revenuerange == "undefined") {
+                    high = req.body.queryResult.parameters.high;
+                    low = req.body.queryResult.parameters.low;
+                    console.log("low high defined");
+                    var params = {
+                        "high": high,
+                        "low": low,
+                        "oppstatus": oppStatus,
+                        "filters": 'estimatedvalue'
+                    };
+                    filterRange = "with Revenue between " + converter.toWords(low) + " to " + converter.toWords(high);
+                } else {
+                    console.log("range defined");
+                    var params = {
+                        "number": number,
+                        "oppstatus": oppStatus,
+                        "filters": 'estimatedvalue'
+                    };
+                    switch (revenuerange) {
+                        case 'equals':
+                            params.ranges = "eq";
+                            break;
+                        case 'not equal':
+                            params.ranges = "ne";
+                            break;
+                        case 'less than or equal':
+                            params.ranges = "le";
+                            break;
+                        case 'less than':
+                            params.ranges = "lt";
+                            break;
+                        case 'greater than':
+                            params.ranges = "gt";
+                            break;
+                        case 'greater than or equal':
+                            params.ranges = "ge";
+                            break;
+                    }
+                    filterRange = "with Revenue " + revenuerange + converter.toWords(number);
                 }
                 console.log("PARAMS", params);
                 return helper.callDynamicsAPI(parameters).then((result) => {

@@ -17,6 +17,7 @@
     "forever": "^0.15.3",
     "lodash": "^4.17.11",
     "nodemon": "^1.18.4",
+    "number-to-words": "^1.2.4",
     "request": "^2.88.0"
   }
 }
