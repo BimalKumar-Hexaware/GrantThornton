@@ -140,7 +140,7 @@ module.exports = {
                 } else {
                     console.log("range defined");
                     var params = {
-                        "number.original": number,
+                        "number": number,
                         "oppstatus": oppStatus,
                         "filters": 'estimatedvalue'
                     };
