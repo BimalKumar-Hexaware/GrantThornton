@@ -68,76 +68,55 @@ module.exports = {
                 var date = req.body.queryResult.parameters.date;
                 console.log("Date", date);
                 if (date == "" || typeof date == "undefined") {
-                    // console.log(req.data);
-                    var condition = req.slots.condition.resolutions;
-                    console.log(condition);
-                    if (condition.length === 0 || typeof condition === "undefined") {
-                        console.log("condition not provided");
-                        startDate = req.data.request.intent.slots.startDate.value;
-                        endDate = req.data.request.intent.slots.startDate.value;
-                        monthName = req.data.request.intent.slots.monthName.value;
-                        quarterly = req.slots.quarterly.resolutions;
+                    console.log("date not provided");
+                    startDate = req.body.queryResult.parameters.date;
+                    endDate = req.body.queryResult.parameters.endDate;
+                    monthName = req.body.queryResult.parameters.monthname;
+                    quarterly = req.body.queryResult.parameters.quarterly;
 
-                        if ((startDate !== "" && typeof startDate !== "undefined") && (endDate !== "" && typeof endDate !== "undefined")) {
-                            var params = {
-                                "startDate": startDate,
-                                "endDate": endDate,
-                                "condition": 'inBetween',
-                                "oppstatus": oppStatus,
-                                "filters": 'createdon'
-                            };
-                            filterRange = "between" + startDate + " to " + endDate;
-                        } else if (monthName !== "" && typeof monthName !== "undefined") {
-                            var params = {
-                                "monthName": monthName,
-                                "condition": 'month',
-                                "oppstatus": oppStatus,
-                                "filters": 'createdon'
-                            };
-                            filterRange = "for the month of " + monthName;
-                        } else if (quarterly.length !== 0 && typeof quarterly !== "undefined") {
-                            var params = {
-                                "quaterType": quarterly[0].values[0].name,
-                                "condition": 'quarterly',
-                                "oppstatus": oppStatus,
-                                "filters": 'createdon'
-                            };
-                            filterRange = "for the quarter " + quarterly[0].values[0].name;
-                        }
-                    } else {
-                        console.log("condition provided")
+                    if ((startDate !== "" && typeof startDate !== "undefined") && (endDate !== "" && typeof endDate !== "undefined")) {
                         var params = {
-                            "condition": condition[0].values[0].name,
+                            "startDate": startDate,
+                            "endDate": endDate,
+                            "condition": 'inBetween',
                             "oppstatus": oppStatus,
                             "filters": 'createdon'
                         };
-                        filterRange = "for " + condition[0].values[0].name;
+                        filterRange = "between" + startDate + " to " + endDate;
+                    } else if (monthName !== "" && typeof monthName !== "undefined") {
+                        var params = {
+                            "monthName": monthName,
+                            "condition": 'month',
+                            "oppstatus": oppStatus,
+                            "filters": 'createdon'
+                        };
+                        filterRange = "for the month of " + monthName;
+                    } else if (quarterly.length !== 0 && typeof quarterly !== "undefined") {
+                        var params = {
+                            "quaterType": quarterly[0].values[0].name,
+                            "condition": 'quarterly',
+                            "oppstatus": oppStatus,
+                            "filters": 'createdon'
+                        };
+                        filterRange = "for the quarter " + quarterly[0].values[0].name;
                     }
 
-                } else {
-                    var params = {
-                        "date": date,
-                        "oppstatus": oppStatus,
-                        "filters": 'createdon'
-                    };
-                    filterRange = "on " + date;
-                }
-                console.log("PARAMS", params);
-                return helper.callDynamicsAPI(parameters).then((result) => {
-                    console.log("SKYPE RESPONSE", result);
-                    res.json(result);
-                }).catch((err) => {
-                    console.log("ERROR", err);
-                    res.json({
-                        "text": {
-                            "text": [
-                                "Something went wrong when processing your request. Please try again."
-                            ]
-                        },
-                        "platform": "SKYPE"
+                    console.log("PARAMS", params);
+                    return helper.callDynamicsAPI(parameters).then((result) => {
+                        console.log("SKYPE RESPONSE", result);
+                        res.json(result);
+                    }).catch((err) => {
+                        console.log("ERROR", err);
+                        res.json({
+                            "text": {
+                                "text": [
+                                    "Something went wrong when processing your request. Please try again."
+                                ]
+                            },
+                            "platform": "SKYPE"
+                        });
                     });
-                });
-                break;
+                    break;
+                }
         }
-    }
-};
+    };
