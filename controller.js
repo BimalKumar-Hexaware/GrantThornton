@@ -53,7 +53,7 @@ module.exports = {
                 break;
             case "gt.combinedDateIntent":
                 var date = req.body.queryResult.parameters.date;
-                var oppstatus = req.body.queryResult.parameters.oppstatus;
+                var oppStatus = req.body.queryResult.parameters.oppstatus;
                 console.log("Date", date);
                 if (date == "" || typeof date == "undefined") {
                     console.log("date not provided");
