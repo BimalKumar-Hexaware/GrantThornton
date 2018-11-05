@@ -123,7 +123,7 @@ module.exports = {
             case "gt.combinedRevenueIntent":
                 var oppStatus = req.body.queryResult.parameters.oppstatus;
                 var number = req.body.queryResult.parameters.number;
-                var revenuerange = req.body.queryResult.parameters.revenuerange;
+                var revenuerange = req.body.queryResult.parameters.ranges;
                 var filterRange = '';
                 if (revenuerange == "" || typeof revenuerange == "undefined") {
                     high = req.body.queryResult.parameters.high;
