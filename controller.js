@@ -57,9 +57,15 @@ module.exports = {
                 console.log("Date", date);
                 if (date == "" || typeof date == "undefined") {
                     console.log("date not provided");
-                    startDate = req.body.queryResult.parameters.monthName.startDate;
-                    endDate = req.body.queryResult.parameters.monthName.endDate;
                     monthName = req.body.queryResult.parameters.monthname;
+                    console.log("MONTH TYPE", typeof monthName);
+                    if (typeof monthName == 'object') {
+                        startDate = req.body.queryResult.parameters.monthName.startDate;
+                        endDate = req.body.queryResult.parameters.monthName.endDate;
+                    } else {
+                        startDate = req.body.queryResult.parameters.startDate;
+                        endDate = req.body.queryResult.parameters.endDate;
+                    }
                     quarterly = req.body.queryResult.parameters.quarterly;
 
                     if ((startDate !== "" && typeof startDate !== "undefined") && (endDate !== "" && typeof endDate !== "undefined")) {
