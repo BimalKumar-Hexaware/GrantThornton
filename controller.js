@@ -59,7 +59,7 @@ module.exports = {
                     monthName = req.body.queryResult.parameters.monthname;
                     console.log("MONTH TYPE", typeof monthName);
                     if (typeof monthName == 'object') {
-                        startDate = monthname.startDate;
+                        startDate = monthName.startDate;
                         endDate = monthName.endDate;
                     } else {
                         startDate = req.body.queryResult.parameters.startDate;
