@@ -18,6 +18,7 @@ var self = {
                     console.log("callDynamicsAPI err", error);
                     reject("Something went wrong when processing your request. Please try again.");
                 }
+                console.log("Dynamics response body",JSON.stringify(body));
                 var skypeResponse = self.prepareOpportunityCards(body);
                 resolve(skypeResponse);
             });

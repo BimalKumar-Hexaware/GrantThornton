@@ -7,19 +7,6 @@ module.exports = {
         var parameters = {};
 
         switch (req.body.queryResult.action) {
-            case "gt.getoppsbystatus":
-                var oppstatus = req.body.queryResult.parameters.oppstatus;
-                console.log("oppstatus", oppstatus);
-                res.json({
-                    "followupEventInput": {
-                        "name": "filter-event",
-                        "parameters": {
-                            "oppstatus": oppstatus,
-                        },
-                        "languageCode": "en-US"
-                    }
-                });
-                break;
             case "gt.userquery-applyfilter-date-supplydate":
                 _.forEach(req.body.queryResult.outputContexts, function (value, key) {
                     if (_.includes(value.name, 'selected_status')) {
