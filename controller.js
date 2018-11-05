@@ -135,7 +135,8 @@ module.exports = {
                         "oppstatus": oppStatus,
                         "filters": 'estimatedvalue'
                     };
-                    filterRange = "with Revenue between " + converter.toWords(low) + " to " + converter.toWords(high);
+                    //filterRange = "with Revenue between " + converter.toWords(low) + " to " + converter.toWords(high);
+                    filterRange = "";
                 } else {
                     console.log("range defined");
                     var params = {
@@ -163,7 +164,8 @@ module.exports = {
                             params.ranges = "ge";
                             break;
                     }
-                    filterRange = "with Revenue " + revenuerange + converter.toWords(number);
+                    //filterRange = "with Revenue " + revenuerange + converter.toWords(number);
+                    filterRange = "";
                 }
                 console.log("PARAMS", params);
                 return helper.callDynamicsAPI(parameters).then((result) => {
