@@ -55,52 +55,44 @@ module.exports = {
             case "gt.combinedDateIntent":
                 var date = req.body.queryResult.parameters.date;
                 var oppStatus = req.body.queryResult.parameters.oppstatus;
+                var params = {
+                    "startDate": "",
+                    "endDate": "",
+                    "condition": '',
+                    "oppstatus": oppStatus,
+                    "filters": 'createdon',
+                    "monthName": "",
+                    "quaterType": "",
+                    "date": ""
+                };
                 console.log("Date", date);
                 if (date == "" || typeof date == "undefined") {
                     console.log("date not provided");
                     monthName = req.body.queryResult.parameters.monthname;
                     console.log("MONTH TYPE", typeof monthName);
                     if (typeof monthName == 'object') {
-                        startDate = monthName.startDate;
-                        endDate = monthName.endDate;
+                        params.startDate = monthName.startDate;
+                        params.endDate = monthName.endDate;
                     } else {
-                        startDate = req.body.queryResult.parameters.startDate;
-                        endDate = req.body.queryResult.parameters.endDate;
+                        params.startDate = req.body.queryResult.parameters.startDate;
+                        params.endDate = req.body.queryResult.parameters.endDate;
                     }
                     quarterly = req.body.queryResult.parameters.quarterly;
 
                     if ((startDate !== "" && typeof startDate !== "undefined") && (endDate !== "" && typeof endDate !== "undefined")) {
-                        var params = {
-                            "startDate": startDate,
-                            "endDate": endDate,
-                            "condition": 'inBetween',
-                            "oppstatus": oppStatus,
-                            "filters": 'createdon'
-                        };
+                        params.condition = 'inBetween';
                         filterRange = "between" + startDate + " to " + endDate;
                     } else if (monthName !== "" && typeof monthName !== "undefined") {
-                        var params = {
-                            "monthName": monthName,
-                            "condition": 'month',
-                            "oppstatus": oppStatus,
-                            "filters": 'createdon'
-                        };
+                        params.monthName = monthName;
+                        params.condition = 'month';
                         filterRange = "for the month of " + monthName;
                     } else if (quarterly.length !== 0 && typeof quarterly !== "undefined") {
-                        var params = {
-                            "quaterType": quarterly,
-                            "condition": 'quarterly',
-                            "oppstatus": oppStatus,
-                            "filters": 'createdon'
-                        };
+                        params.quaterType = quarterly;
+                        params.condition = 'quarterly';
                         filterRange = "for the quarter " + quarterly;
                     }
                 } else {
-                    var params = {
-                        "date": date,
-                        "oppstatus": oppStatus,
-                        "filters": 'createdon'
-                    };
+                    params.date = date;
                     //filterRange = "for the date " + quarterly;
                     filterRange = "for the date ";
                 }
@@ -124,26 +116,26 @@ module.exports = {
                 var oppStatus = req.body.queryResult.parameters.oppstatus;
                 var number = req.body.queryResult.parameters.number;
                 var revenuerange = req.body.queryResult.parameters.ranges;
+                var high = req.body.queryResult.parameters.high;
+                var low = req.body.queryResult.parameters.low;
                 var filterRange = '';
+                var params = {
+                    "high": "",
+                    "low": "",
+                    "oppstatus": oppStatus,
+                    "filters": 'estimatedvalue',
+                    "number": "",
+                    "ranges": ""
+                };
                 if (revenuerange == "" || typeof revenuerange == "undefined") {
-                    high = req.body.queryResult.parameters.high;
-                    low = req.body.queryResult.parameters.low;
                     console.log("low high defined");
-                    var params = {
-                        "high": high,
-                        "low": low,
-                        "oppstatus": oppStatus,
-                        "filters": 'estimatedvalue'
-                    };
+                    params.low = low;
+                    params.high = high;
                     //filterRange = "with Revenue between " + converter.toWords(low) + " to " + converter.toWords(high);
                     filterRange = "";
                 } else {
                     console.log("range defined");
-                    var params = {
-                        "number": number,
-                        "oppstatus": oppStatus,
-                        "filters": 'estimatedvalue'
-                    };
+                    params.number = number;
                     switch (revenuerange) {
                         case 'equals':
                             params.ranges = "eq";
