@@ -57,6 +57,7 @@ module.exports = {
                 var oppStatus = req.body.queryResult.parameters.oppstatus;
                 var quarterly = req.body.queryResult.parameters.quarterly;
                 var monthName = req.body.queryResult.parameters.monthname;
+                var condition = req.body.queryResult.parameters.condition;
                 var params = {
                     "startDate": "",
                     "endDate": "",
