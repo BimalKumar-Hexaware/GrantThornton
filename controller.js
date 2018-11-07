@@ -186,12 +186,14 @@ module.exports = {
                     var latestNews = `Here is the latest update from twitter: ${result[Math.floor(Math.random() * result.length)]}`;
                     console.log("Latest news", latestNews);
                     res.json({
-                        "text": {
-                            "text": [
-                                latestNews
-                            ]
-                        },
-                        "platform": "SKYPE"
+                        "fulfillmentMessages": [{
+                            "text": {
+                                "text": [
+                                    latestNews
+                                ]
+                            },
+                            "platform": "SKYPE"
+                        }]
                     });
                 }).catch((err) => {
                     console.log("ERROR", err);
