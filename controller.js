@@ -55,16 +55,12 @@ module.exports = {
             case "gt.combinedDateIntent":
                 var date = req.body.queryResult.parameters.date;
                 var oppStatus = req.body.queryResult.parameters.oppstatus;
-                var params = {
-                    "startDate": "",
-                    "endDate": "",
-                    "condition": "",
-                    "oppstatus": oppStatus,
-                    "filters": 'createdon',
-                    "monthName": "",
-                    "quaterType": "",
-                    "date": ""
-                };
+                var params = {};
+                _.forEach(req.body.queryResult.outputContexts, function (value, key) {
+                    if (_.includes(value.name, 'selected_status')) {
+                        params = value.parameters;
+                    }
+                });
                 console.log("Date", date);
                 if (date == "" || typeof date == "undefined") {
                     console.log("date not provided");
