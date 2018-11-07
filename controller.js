@@ -70,8 +70,10 @@ module.exports = {
                         params.startDate = monthName.startDate;
                         params.endDate = monthName.endDate;
                     } else {
-                        params.startDate = req.body.queryResult.parameters.startDate;
-                        params.endDate = req.body.queryResult.parameters.endDate;
+                        if (typeof req.body.queryResult.parameters.startDate == "undefined" && typeof req.body.queryResult.parameters.endDate == "undefined") {
+                            params.startDate = req.body.queryResult.parameters.startDate;
+                            params.endDate = req.body.queryResult.parameters.endDate;
+                        }
                     }
                     quarterly = req.body.queryResult.parameters.quarterly;
 
