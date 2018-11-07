@@ -69,17 +69,17 @@ module.exports = {
                 };
                 console.log("Date", date);
                 if (date == "" || typeof date == "undefined") {
-                    console.log("date not provided");                    
+                    console.log("date not provided");
                     console.log("MONTH TYPE", typeof monthName);
                     if (typeof monthName == 'object') {
                         params.startDate = monthName.startDate;
                         params.endDate = monthName.endDate;
                     } else {
-                        if(typeof req.body.queryResult.parameters.startDate != "undefined" && typeof req.body.queryResult.parameters.endDate != "undefined") {
+                        if (typeof req.body.queryResult.parameters.startDate != "undefined" && typeof req.body.queryResult.parameters.endDate != "undefined") {
                             params.startDate = req.body.queryResult.parameters.startDate;
                             params.endDate = req.body.queryResult.parameters.endDate;
-                        }                        
-                    }                  
+                        }
+                    }
 
                     if ((params.startDate !== "" && typeof params.startDate !== "undefined") && (params.endDate !== "" && typeof params.endDate !== "undefined")) {
                         params.condition = 'inBetween';
@@ -121,12 +121,14 @@ module.exports = {
                 var high = req.body.queryResult.parameters.high;
                 var low = req.body.queryResult.parameters.low;
                 var filterRange = '';
-                var params = {};
-                _.forEach(req.body.queryResult.outputContexts, function (value, key) {
-                    if (_.includes(value.name, 'selected_status')) {
-                        params = value.parameters;
-                    }
-                });
+                var params = {
+                    "high": "",
+                    "low": "",
+                    "oppstatus": oppStatus,
+                    "filters": 'estimatedvalue',
+                    "number": "",
+                    "ranges": ""
+                };
                 if (revenuerange == "" || typeof revenuerange == "undefined") {
                     console.log("low high defined");
                     params.low = low;
