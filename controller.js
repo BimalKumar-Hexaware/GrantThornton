@@ -54,27 +54,32 @@ module.exports = {
                 break;
             case "gt.combinedDateIntent":
                 var date = req.body.queryResult.parameters.date;
-                var params = {};
-                _.forEach(req.body.queryResult.outputContexts, function (value, key) {
-                    if (_.includes(value.name, 'selected_status')) {
-                        params = value.parameters;
-                    }
-                });
+                var oppStatus = req.body.queryResult.parameters.oppstatus;
+                var quarterly = req.body.queryResult.parameters.quarterly;
+                var monthName = req.body.queryResult.parameters.monthname;
+                var params = {
+                    "startDate": "",
+                    "endDate": "",
+                    "condition": "",
+                    "oppstatus": oppStatus,
+                    "filters": 'createdon',
+                    "monthName": "",
+                    "quaterType": "",
+                    "date": ""
+                };
                 console.log("Date", date);
                 if (date == "" || typeof date == "undefined") {
-                    console.log("date not provided");
-                    monthName = req.body.queryResult.parameters.monthname;
+                    console.log("date not provided");                    
                     console.log("MONTH TYPE", typeof monthName);
                     if (typeof monthName == 'object') {
                         params.startDate = monthName.startDate;
                         params.endDate = monthName.endDate;
                     } else {
-                        if (typeof req.body.queryResult.parameters.startDate != "undefined" && typeof req.body.queryResult.parameters.endDate != "undefined") {
+                        if(typeof req.body.queryResult.parameters.startDate != "undefined" && typeof req.body.queryResult.parameters.endDate != "undefined") {
                             params.startDate = req.body.queryResult.parameters.startDate;
                             params.endDate = req.body.queryResult.parameters.endDate;
-                        }
-                    }
-                    quarterly = req.body.queryResult.parameters.quarterly;
+                        }                        
+                    }                  
 
                     if ((params.startDate !== "" && typeof params.startDate !== "undefined") && (params.endDate !== "" && typeof params.endDate !== "undefined")) {
                         params.condition = 'inBetween';
@@ -110,6 +115,7 @@ module.exports = {
                 });
                 break;
             case "gt.combinedRevenueIntent":
+                var oppStatus = req.body.queryResult.parameters.oppstatus;
                 var number = req.body.queryResult.parameters.number;
                 var revenuerange = req.body.queryResult.parameters.ranges;
                 var high = req.body.queryResult.parameters.high;
