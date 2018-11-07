@@ -179,6 +179,31 @@ module.exports = {
                     });
                 });
                 break;
+            case "gt.newsUpdates":
+                console.log("inside gt.newsUpdates");
+                return helper.newsUpdatesAPI().then((result) => {
+                    console.log("NEWSes", result);
+                    var latestNews = result[Math.floor(Math.random() * result.length)];
+                    res.json({
+                        "text": {
+                            "text": [
+                                `Here is the latest update from twitter: ${latestNews}`
+                            ]
+                        },
+                        "platform": "SKYPE"
+                    });
+                }).catch((err) => {
+                    console.log("ERROR", err);
+                    res.json({
+                        "text": {
+                            "text": [
+                                "Something went wrong when processing your request. Please try again."
+                            ]
+                        },
+                        "platform": "SKYPE"
+                    });
+                });
+                break;
         }
     }
 };
