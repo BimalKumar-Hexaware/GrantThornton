@@ -14,7 +14,7 @@ module.exports = {
                         parameters = value.parameters;
                     }
                 });
-                console.log("Parameters", parameters);
+                console.log("Parameters", JSON.stringify(parameters);
                 return helper.callDynamicsAPI(parameters).then((result) => {
                     console.log("SKYPE RESPONSE", result);
                     res.json(result);
@@ -36,7 +36,7 @@ module.exports = {
                         parameters = value.parameters;
                     }
                 });
-                console.log("Parameters", parameters);
+                console.log("Parameters", JSON.stringify(parameters));
                 return helper.callDynamicsAPI(parameters).then((result) => {
                     console.log("SKYPE RESPONSE", result);
                     res.json(result);
@@ -58,7 +58,7 @@ module.exports = {
                 var params = {
                     "startDate": "",
                     "endDate": "",
-                    "condition": '',
+                    "condition": "",
                     "oppstatus": oppStatus,
                     "filters": 'createdon',
                     "monthName": "",
@@ -96,7 +96,7 @@ module.exports = {
                     //filterRange = "for the date " + quarterly;
                     filterRange = "for the date ";
                 }
-                console.log("PARAMS", params);
+                console.log("PARAMS", JSON.stringify(params));
                 return helper.callDynamicsAPI(parameters).then((result) => {
                     console.log("SKYPE RESPONSE", result);
                     res.json(result);
@@ -159,7 +159,7 @@ module.exports = {
                     //filterRange = "with Revenue " + revenuerange + converter.toWords(number);
                     filterRange = "";
                 }
-                console.log("PARAMS", params);
+                console.log("PARAMS", JSON.stringify(params));
                 return helper.callDynamicsAPI(parameters).then((result) => {
                     console.log("SKYPE RESPONSE", result);
                     res.json(result);
