@@ -94,6 +94,7 @@ var self = {
                 resolve(body);
             });
         });
-    };
+    }
+};
 
-    module.exports = self;
+module.exports = self;
