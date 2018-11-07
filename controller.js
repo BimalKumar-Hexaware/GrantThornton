@@ -119,14 +119,12 @@ module.exports = {
                 var high = req.body.queryResult.parameters.high;
                 var low = req.body.queryResult.parameters.low;
                 var filterRange = '';
-                var params = {
-                    "high": "",
-                    "low": "",
-                    "oppstatus": oppStatus,
-                    "filters": 'estimatedvalue',
-                    "number": "",
-                    "ranges": ""
-                };
+                var params = {};
+                _.forEach(req.body.queryResult.outputContexts, function (value, key) {
+                    if (_.includes(value.name, 'selected_status')) {
+                        params = value.parameters;
+                    }
+                });
                 if (revenuerange == "" || typeof revenuerange == "undefined") {
                     console.log("low high defined");
                     params.low = low;
