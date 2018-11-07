@@ -99,7 +99,7 @@ module.exports = {
                     filterRange = "for the date ";
                 }
                 console.log("PARAMS", JSON.stringify(params));
-                return helper.callDynamicsAPI(parameters).then((result) => {
+                return helper.callDynamicsAPI(params).then((result) => {
                     console.log("SKYPE RESPONSE", result);
                     res.json(result);
                 }).catch((err) => {
@@ -161,7 +161,7 @@ module.exports = {
                     filterRange = "";
                 }
                 console.log("PARAMS", JSON.stringify(params));
-                return helper.callDynamicsAPI(parameters).then((result) => {
+                return helper.callDynamicsAPI(params).then((result) => {
                     console.log("SKYPE RESPONSE", result);
                     res.json(result);
                 }).catch((err) => {
