@@ -136,7 +136,8 @@ module.exports = {
                 } else {
                     console.log("range defined");
                     params.number = number;
-                    switch (revenuerange) {
+                    params.ranges = revenuerange;
+                    /*switch (revenuerange) {
                         case 'equals':
                             params.ranges = "eq";
                             break;
@@ -155,7 +156,7 @@ module.exports = {
                         case 'greater than or equal':
                             params.ranges = "ge";
                             break;
-                    }
+                    }*/
                     //filterRange = "with Revenue " + revenuerange + converter.toWords(number);
                     filterRange = "";
                 }
