@@ -183,11 +183,12 @@ module.exports = {
                 console.log("inside gt.newsUpdates");
                 return helper.newsUpdatesAPI().then((result) => {
                     console.log("NEWSes", result);
-                    var latestNews = result[Math.floor(Math.random() * result.length)];
+                    var latestNews = `Here is the latest update from twitter: ${result[Math.floor(Math.random() * result.length)]}`;
+                    console.log("Latest news", latestNews);
                     res.json({
                         "text": {
                             "text": [
-                                `Here is the latest update from twitter: ${latestNews}`
+                                latestNews
                             ]
                         },
                         "platform": "SKYPE"
