@@ -61,7 +61,7 @@ module.exports = {
                 var params = {
                     "startDate": "",
                     "endDate": "",
-                    "condition": "",
+                    "condition": condition,
                     "oppstatus": oppStatus,
                     "filters": 'createdon',
                     "monthName": "",
