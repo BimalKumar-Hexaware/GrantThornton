@@ -54,7 +54,6 @@ module.exports = {
                 break;
             case "gt.combinedDateIntent":
                 var date = req.body.queryResult.parameters.date;
-                var oppStatus = req.body.queryResult.parameters.oppstatus;
                 var params = {};
                 _.forEach(req.body.queryResult.outputContexts, function (value, key) {
                     if (_.includes(value.name, 'selected_status')) {
@@ -70,14 +69,14 @@ module.exports = {
                         params.startDate = monthName.startDate;
                         params.endDate = monthName.endDate;
                     } else {
-                        if (typeof req.body.queryResult.parameters.startDate == "undefined" && typeof req.body.queryResult.parameters.endDate == "undefined") {
+                        if (typeof req.body.queryResult.parameters.startDate != "undefined" && typeof req.body.queryResult.parameters.endDate != "undefined") {
                             params.startDate = req.body.queryResult.parameters.startDate;
                             params.endDate = req.body.queryResult.parameters.endDate;
                         }
                     }
                     quarterly = req.body.queryResult.parameters.quarterly;
 
-                    if ((startDate !== "" && typeof startDate !== "undefined") && (endDate !== "" && typeof endDate !== "undefined")) {
+                    if ((params.startDate !== "" && typeof params.startDate !== "undefined") && (params.endDate !== "" && typeof params.endDate !== "undefined")) {
                         params.condition = 'inBetween';
                         filterRange = "between" + startDate + " to " + endDate;
                     } else if (monthName !== "" && typeof monthName !== "undefined") {
@@ -111,7 +110,6 @@ module.exports = {
                 });
                 break;
             case "gt.combinedRevenueIntent":
-                var oppStatus = req.body.queryResult.parameters.oppstatus;
                 var number = req.body.queryResult.parameters.number;
                 var revenuerange = req.body.queryResult.parameters.ranges;
                 var high = req.body.queryResult.parameters.high;
