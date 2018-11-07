@@ -14,7 +14,7 @@ module.exports = {
                         parameters = value.parameters;
                     }
                 });
-                console.log("Parameters", JSON.stringify(parameters);
+                console.log("Parameters", JSON.stringify(parameters));
                 return helper.callDynamicsAPI(parameters).then((result) => {
                     console.log("SKYPE RESPONSE", result);
                     res.json(result);
