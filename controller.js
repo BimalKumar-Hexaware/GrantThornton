@@ -50,9 +50,10 @@ module.exports = {
             case "DefaultWelcomeIntent-applyfilter":
                 var oppStatus = req.body.queryResult.parameters.oppstatus;
                 console.log("inside DefaultWelcomeIntent-applyfilter ans status is ", oppStatus);
+                var test = `show me ${oppStatus} opportunities`;
                 res.json({
                     "followupEventInput": {
-                        "name": `show me ${oppStatus} opportunities`,
+                        "name": test,
                         "languageCode": "en-US"
                     }
                 });
