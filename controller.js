@@ -8,6 +8,58 @@ module.exports = {
         console.log("DF Action", req.body.queryResult.action);
         var params = {};
         switch (req.body.queryResult.action) {
+            case "input.welcome":
+                res.json({
+                    "fulfillmentMessages": [{
+                        "text": {
+                            "text": [
+                                "Hi, I am Macy. Your Grand Thornton sales buddy. I can help you in knowing about the opportunities."
+                            ]
+                        },
+                        "platform": "SKYPE"
+                    }, {
+                        "card": {
+                            "title": "Tell me what opportunity would you like to see?",
+                            "buttons": [
+                                {
+                                    "text": "Open",
+                                    "postback": "open"
+                                },
+                                {
+                                    "text": "Closed",
+                                    "postback": "closed"
+                                },
+                                {
+                                    "text": "All",
+                                    "postback": "all"
+                                },
+                                {
+                                    "text": "Won",
+                                    "postback": "won"
+                                },
+                                {
+                                    "text": "Lost",
+                                    "postback": "lost"
+                                }
+                            ]
+                        },
+                        "platform": "SKYPE"
+                    }]
+                });
+                break;
+                case "DefaultWelcomeIntent-applyfilter":
+                console.log("inside DefaultWelcomeIntent-applyfilter");
+                var oppStatus = req.body.queryResult.parameters.oppstatus;
+                res.json({
+                    "followupEventInput": {
+                        "name": "filter-event",
+                        "parameters": {
+                            "oppstatus": oppStatus
+                        },
+                        "languageCode": "en-US"
+                    }
+                });
+                break;
             case 'gt.userquery':
                 console.log("inside gt.userquery");
                 var oppStatus = req.body.queryResult.parameters.oppstatus;
@@ -105,12 +157,14 @@ module.exports = {
                 }).catch((err) => {
                     console.log("ERROR", err);
                     res.json({
-                        "text": {
-                            "text": [
-                                "Something went wrong when processing your request. Please try again."
-                            ]
-                        },
-                        "platform": "SKYPE"
+                        "fulfillmentMessages": [{
+                            "text": {
+                                "text": [
+                                    "Something went wrong when processing your request. Please try again."
+                                ]
+                            },
+                            "platform": "SKYPE"
+                        }]
                     });
                 });
                 break;
@@ -127,12 +181,14 @@ module.exports = {
                 }).catch((err) => {
                     console.log("ERROR", err);
                     res.json({
-                        "text": {
-                            "text": [
-                                "Something went wrong when processing your request. Please try again."
-                            ]
-                        },
-                        "platform": "SKYPE"
+                        "fulfillmentMessages": [{
+                            "text": {
+                                "text": [
+                                    "Something went wrong when processing your request. Please try again."
+                                ]
+                            },
+                            "platform": "SKYPE"
+                        }]
                     });
                 });
                 break;
@@ -190,12 +246,14 @@ module.exports = {
                 }).catch((err) => {
                     console.log("ERROR", err);
                     res.json({
-                        "text": {
-                            "text": [
-                                "Something went wrong when processing your request. Please try again."
-                            ]
-                        },
-                        "platform": "SKYPE"
+                        "fulfillmentMessages": [{
+                            "text": {
+                                "text": [
+                                    "Something went wrong when processing your request. Please try again."
+                                ]
+                            },
+                            "platform": "SKYPE"
+                        }]
                     });
                 });
                 break;
@@ -254,12 +312,14 @@ module.exports = {
                 }).catch((err) => {
                     console.log("ERROR", err);
                     res.json({
-                        "text": {
-                            "text": [
-                                "Something went wrong when processing your request. Please try again."
-                            ]
-                        },
-                        "platform": "SKYPE"
+                        "fulfillmentMessages": [{
+                            "text": {
+                                "text": [
+                                    "Something went wrong when processing your request. Please try again."
+                                ]
+                            },
+                            "platform": "SKYPE"
+                        }]
                     });
                 });
                 break;
@@ -282,12 +342,14 @@ module.exports = {
                 }).catch((err) => {
                     console.log("ERROR", err);
                     res.json({
-                        "text": {
-                            "text": [
-                                "Something went wrong when processing your request. Please try again."
-                            ]
-                        },
-                        "platform": "SKYPE"
+                        "fulfillmentMessages": [{
+                            "text": {
+                                "text": [
+                                    "Something went wrong when processing your request. Please try again."
+                                ]
+                            },
+                            "platform": "SKYPE"
+                        }]
                     });
                 });
                 break;
