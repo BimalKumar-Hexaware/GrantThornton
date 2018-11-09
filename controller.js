@@ -47,12 +47,12 @@ module.exports = {
                     }]
                 });
                 break;
-                case "DefaultWelcomeIntent-applyfilter":
+            case "DefaultWelcomeIntent-applyfilter":
                 console.log("inside DefaultWelcomeIntent-applyfilter");
                 var oppStatus = req.body.queryResult.parameters.oppstatus;
                 res.json({
                     "followupEventInput": {
-                        "name": "filter-event",
+                        "name": "userquery-event",
                         "parameters": {
                             "oppstatus": oppStatus
                         },
