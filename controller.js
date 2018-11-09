@@ -6,16 +6,52 @@ module.exports = {
     "webhookRequestHandler": (req, res) => {
         console.log("Dialogflow request body", JSON.stringify(req.body));
         console.log("DF Action", req.body.queryResult.action);
-        var parameters = {};
+        var params = {};
         switch (req.body.queryResult.action) {
             case "gt.userquery-applyfilter-date-supplydate":
+                var date = req.body.queryResult.parameters.date;
+                var oppStatus = req.body.queryResult.parameters.oppstatus;
+                var quarterly = req.body.queryResult.parameters.quarterly;
+                var monthName = req.body.queryResult.parameters.monthname;
+                var condition = req.body.queryResult.parameters.condition;
                 _.forEach(req.body.queryResult.outputContexts, function (value, key) {
                     if (_.includes(value.name, 'selected_status')) {
-                        parameters = value.parameters;
+                        params = value.parameters;
                     }
                 });
-                console.log("Parameters", JSON.stringify(parameters));
-                return helper.callDynamicsAPI(parameters).then((result) => {
+                console.log("Parameters", JSON.stringify(params));
+                if (date == "" || typeof date == "undefined") {
+                    console.log("date not provided");
+                    console.log("MONTH TYPE", typeof monthName);
+                    if (typeof monthName == 'object') {
+                        params.startDate = monthName.startDate;
+                        params.endDate = monthName.endDate;
+                    } else {
+                        if (typeof req.body.queryResult.parameters.startDate != "undefined" && typeof req.body.queryResult.parameters.endDate != "undefined") {
+                            params.startDate = req.body.queryResult.parameters.startDate;
+                            params.endDate = req.body.queryResult.parameters.endDate;
+                        }
+                    }
+
+                    if ((params.startDate !== "" && typeof params.startDate !== "undefined") && (params.endDate !== "" && typeof params.endDate !== "undefined")) {
+                        params.condition = 'inBetween';
+                        filterRange = "between" + startDate + " to " + endDate;
+                    } else if (monthName !== "" && typeof monthName !== "undefined") {
+                        params.monthName = monthName;
+                        params.condition = 'month';
+                        filterRange = "for the month of " + monthName;
+                    } else if (quarterly.length !== 0 && typeof quarterly !== "undefined") {
+                        params.quaterType = quarterly;
+                        params.condition = 'quarterly';
+                        filterRange = "for the quarter " + quarterly;
+                    }
+                } else {
+                    params.date = date;
+                    //filterRange = "for the date " + quarterly;
+                    filterRange = "for the date ";
+                }
+                console.log("PARAMS", JSON.stringify(params));
+                return helper.callDynamicsAPI(params).then((result) => {
                     console.log("SKYPE RESPONSE", result);
                     res.json(result);
                 }).catch((err) => {
