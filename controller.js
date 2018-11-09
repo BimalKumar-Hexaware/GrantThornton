@@ -329,7 +329,7 @@ module.exports = {
                             rangeToWord = "greater than or equal";
                             break;
                     }
-                    filterRange = "with Revenue " + rangeToWord + number;
+                    filterRange = "with Revenue " + rangeToWord + " " +number;
                 }
                 console.log("PARAMS", JSON.stringify(params));
                 return helper.callDynamicsAPI(params,filterRange).then((result) => {
