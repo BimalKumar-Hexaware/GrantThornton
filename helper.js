@@ -41,7 +41,7 @@ var self = {
         } else {
             if (typeof result.value !== 'undefined') {
                 _.forEach(result.value, function (value, key) {
-                    if (key < 3) {
+                    if (key < 5) {
                         response.fulfillmentMessages.push({
                             "card": {
                                 "title": value.name,
