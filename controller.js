@@ -8,6 +8,54 @@ module.exports = {
         console.log("DF Action", req.body.queryResult.action);
         var params = {};
         switch (req.body.queryResult.action) {
+            case 'gt.userquery':
+                console.log("inside gt.userquery");
+                var oppStatus = req.body.queryResult.parameters.oppstatus;
+                if (oppStatus == "") {
+                    console.log("status not provided");
+                    res.json({
+                        "fulfillmentMessages": [{
+                            "card": {
+                                "title": "What opportunity would you like to see?",
+                                "buttons": [
+                                    {
+                                        "text": "Open",
+                                        "postback": "open"
+                                    },
+                                    {
+                                        "text": "Closed",
+                                        "postback": "closed"
+                                    },
+                                    {
+                                        "text": "All",
+                                        "postback": "all"
+                                    },
+                                    {
+                                        "text": "Won",
+                                        "postback": "won"
+                                    },
+                                    {
+                                        "text": "Lost",
+                                        "postback": "lost"
+                                    }
+                                ]
+                            },
+                            "platform": "SKYPE"
+                        }]
+                    });
+                } else {
+                    console.log("status provided");
+                    res.json({
+                        "followupEventInput": {
+                            "name": "filter-event",
+                            "parameters": {
+                                "oppstatus": oppStatus
+                            },
+                            "languageCode": "en-US"
+                        }
+                    });
+                }
+                break;
             case "gt.userquery-applyfilter-date-supplydate":
                 var date = req.body.queryResult.parameters.date;
                 var oppStatus = req.body.queryResult.parameters.oppstatus;
