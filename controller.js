@@ -48,8 +48,8 @@ module.exports = {
                 });
                 break;
             case "DefaultWelcomeIntent-applyfilter":
-                console.log("inside DefaultWelcomeIntent-applyfilter");
                 var oppStatus = req.body.queryResult.parameters.oppstatus;
+                console.log("inside DefaultWelcomeIntent-applyfilter ans status is ", oppStatus);
                 res.json({
                     "followupEventInput": {
                         "name": "userquery-event",
