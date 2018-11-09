@@ -50,10 +50,12 @@ module.exports = {
             case "DefaultWelcomeIntent-applyfilter":
                 var oppStatus = req.body.queryResult.parameters.oppstatus;
                 console.log("inside DefaultWelcomeIntent-applyfilter ans status is ", oppStatus);
-                var test = `show me ${oppStatus} opportunities`;
                 res.json({
                     "followupEventInput": {
-                        "name": test,
+                        "name": "userquery-event",
+                        "parameters": {
+                            "oppstatus": oppStatus
+                        },
                         "languageCode": "en-US"
                     }
                 });
@@ -124,10 +126,12 @@ module.exports = {
                     if (typeof monthName == 'object') {
                         params.startDate = monthName.startDate;
                         params.endDate = monthName.endDate;
+                        filterRange = "between" + params.startDate + " to " + params.endDate;
                     } else {
                         if (typeof req.body.queryResult.parameters.startDate != "undefined" && typeof req.body.queryResult.parameters.endDate != "undefined") {
                             params.startDate = req.body.queryResult.parameters.startDate;
                             params.endDate = req.body.queryResult.parameters.endDate;
+                            filterRange = "between" + params.startDate + " to " + params.endDate;
                         }
                     }
 
@@ -146,10 +150,10 @@ module.exports = {
                 } else {
                     params.date = date;
                     //filterRange = "for the date " + quarterly;
-                    filterRange = "for the date ";
+                    filterRange = "for the date " + date;
                 }
                 console.log("PARAMS", JSON.stringify(params));
-                return helper.callDynamicsAPI(params).then((result) => {
+                return helper.callDynamicsAPI(params, filterRange).then((result) => {
                     console.log("SKYPE RESPONSE", result);
                     res.json(result);
                 }).catch((err) => {
@@ -173,7 +177,31 @@ module.exports = {
                     }
                 });
                 console.log("Parameters", JSON.stringify(parameters));
-                return helper.callDynamicsAPI(parameters).then((result) => {
+                var revenuerange = req.body.queryResult.parameters.ranges;
+                var number = req.body.queryResult.parameters.number;
+                var rangeToWord;
+                switch (revenuerange) {
+                    case 'eq':
+                        rangeToWord = "equals";
+                        break;
+                    case 'ne':
+                        rangeToWord = "not equal";
+                        break;
+                    case 'le':
+                        rangeToWord = "less than or equal";
+                        break;
+                    case 'lt':
+                        rangeToWord = "less than";
+                        break;
+                    case 'gt':
+                        rangeToWord = "greater than";
+                        break;
+                    case 'ge':
+                        rangeToWord = "greater than or equal";
+                        break;
+                }
+                filterRange = "with Revenue " + rangeToWord + number;
+                return helper.callDynamicsAPI(parameters, filterRange).then((result) => {
                     console.log("SKYPE RESPONSE", result);
                     res.json(result);
                 }).catch((err) => {
@@ -213,10 +241,12 @@ module.exports = {
                     if (typeof monthName == 'object') {
                         params.startDate = monthName.startDate;
                         params.endDate = monthName.endDate;
+                        filterRange = "between" + params.startDate + " to " + params.endDate;
                     } else {
                         if (typeof req.body.queryResult.parameters.startDate != "undefined" && typeof req.body.queryResult.parameters.endDate != "undefined") {
                             params.startDate = req.body.queryResult.parameters.startDate;
                             params.endDate = req.body.queryResult.parameters.endDate;
+                            filterRange = "between" + params.startDate + " to " + params.endDate;
                         }
                     }
 
@@ -234,11 +264,10 @@ module.exports = {
                     }
                 } else {
                     params.date = date;
-                    //filterRange = "for the date " + quarterly;
-                    filterRange = "for the date ";
+                    filterRange = "for the date " + quarterly;
                 }
                 console.log("PARAMS", JSON.stringify(params));
-                return helper.callDynamicsAPI(params).then((result) => {
+                return helper.callDynamicsAPI(params,filterRange).then((result) => {
                     console.log("SKYPE RESPONSE", result);
                     res.json(result);
                 }).catch((err) => {
@@ -274,37 +303,36 @@ module.exports = {
                     console.log("low high defined");
                     params.low = low;
                     params.high = high;
-                    //filterRange = "with Revenue between " + converter.toWords(low) + " to " + converter.toWords(high);
-                    filterRange = "";
+                    filterRange = "with Revenue between " + low + " to " + high;
                 } else {
                     console.log("range defined");
                     params.number = number;
                     params.ranges = revenuerange;
-                    /*switch (revenuerange) {
-                        case 'equals':
-                            params.ranges = "eq";
+                    var rangeToWord;
+                    switch (revenuerange) {
+                        case 'eq':
+                            rangeToWord = "equals";
                             break;
-                        case 'not equal':
-                            params.ranges = "ne";
+                        case 'ne':
+                            rangeToWord = "not equal";
                             break;
-                        case 'less than or equal':
-                            params.ranges = "le";
+                        case 'le':
+                            rangeToWord = "less than or equal";
                             break;
-                        case 'less than':
-                            params.ranges = "lt";
+                        case 'lt':
+                            rangeToWord = "less than";
                             break;
-                        case 'greater than':
-                            params.ranges = "gt";
+                        case 'gt':
+                            rangeToWord = "greater than";
                             break;
-                        case 'greater than or equal':
-                            params.ranges = "ge";
+                        case 'ge':
+                            rangeToWord = "greater than or equal";
                             break;
-                    }*/
-                    //filterRange = "with Revenue " + revenuerange + converter.toWords(number);
-                    filterRange = "";
+                    }
+                    filterRange = "with Revenue " + rangeToWord + number;
                 }
                 console.log("PARAMS", JSON.stringify(params));
-                return helper.callDynamicsAPI(params).then((result) => {
+                return helper.callDynamicsAPI(params,filterRange).then((result) => {
                     console.log("SKYPE RESPONSE", result);
                     res.json(result);
                 }).catch((err) => {

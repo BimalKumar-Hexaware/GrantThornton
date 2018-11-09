@@ -2,7 +2,7 @@ var request = require('request');
 var _ = require('lodash');
 
 var self = {
-    "callDynamicsAPI": function (params) {
+    "callDynamicsAPI": function (params, filterRange) {
         console.log('inside callDynamicsAPI');
         return new Promise(function (resolve, reject) {
             var options = {
@@ -20,15 +20,23 @@ var self = {
                     reject("Something went wrong when processing your request. Please try again.");
                 }
                 console.log("Dynamics response body", JSON.stringify(body));
-                var skypeResponse = self.prepareOpportunityCards(body);
+                var skypeResponse = self.prepareOpportunityCards(body, filterRange);
                 resolve(skypeResponse);
             });
         });
     },
-    "prepareOpportunityCards": function (result) {
+    "prepareOpportunityCards": function (result, filterRange) {
         var response = {
             "fulfillmentMessages": []
         };
+        response.fulfillmentMessages.push({
+            "text": {
+                "text": [
+                    "Showing opportunities " + filterRange
+                ]
+            },
+            "platform": "SKYPE"
+        });
         if (typeof result.value == "undefined" || result.value == "") {
             response.fulfillmentMessages.push({
                 "text": {
