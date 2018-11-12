@@ -30,16 +30,16 @@ module.exports = {
                                     "postback": "closed"
                                 },
                                 {
-                                    "text": "All",
-                                    "postback": "all"
-                                },
-                                {
                                     "text": "Won",
                                     "postback": "won"
                                 },
                                 {
                                     "text": "Lost",
                                     "postback": "lost"
+                                },
+                                {
+                                    "text": "All",
+                                    "postback": "all"
                                 }
                             ]
                         },
@@ -79,16 +79,16 @@ module.exports = {
                                         "postback": "closed"
                                     },
                                     {
-                                        "text": "All",
-                                        "postback": "all"
-                                    },
-                                    {
                                         "text": "Won",
                                         "postback": "won"
                                     },
                                     {
                                         "text": "Lost",
                                         "postback": "lost"
+                                    },
+                                    {
+                                        "text": "All",
+                                        "postback": "all"
                                     }
                                 ]
                             },
@@ -126,18 +126,18 @@ module.exports = {
                     if (typeof monthName == 'object') {
                         params.startDate = monthName.startDate;
                         params.endDate = monthName.endDate;
-                        filterRange = "between" + params.startDate + " to " + params.endDate;
+                        filterRange = "between " + params.startDate + " to " + params.endDate;
                     } else {
                         if (typeof req.body.queryResult.parameters.startDate != "undefined" && typeof req.body.queryResult.parameters.endDate != "undefined") {
                             params.startDate = req.body.queryResult.parameters.startDate;
                             params.endDate = req.body.queryResult.parameters.endDate;
-                            filterRange = "between" + params.startDate + " to " + params.endDate;
+                            filterRange = "between " + params.startDate + " to " + params.endDate;
                         }
                     }
 
                     if ((params.startDate !== "" && typeof params.startDate !== "undefined") && (params.endDate !== "" && typeof params.endDate !== "undefined")) {
                         params.condition = 'inBetween';
-                        filterRange = "between" + startDate + " to " + endDate;
+                        filterRange = "between " + startDate + " to " + endDate;
                     } else if (monthName !== "" && typeof monthName !== "undefined") {
                         params.monthName = monthName;
                         params.condition = 'month';
@@ -241,18 +241,18 @@ module.exports = {
                     if (typeof monthName == 'object') {
                         params.startDate = monthName.startDate;
                         params.endDate = monthName.endDate;
-                        filterRange = "between" + params.startDate + " to " + params.endDate;
+                        filterRange = "between " + params.startDate + " to " + params.endDate;
                     } else {
                         if (typeof req.body.queryResult.parameters.startDate != "undefined" && typeof req.body.queryResult.parameters.endDate != "undefined") {
                             params.startDate = req.body.queryResult.parameters.startDate;
                             params.endDate = req.body.queryResult.parameters.endDate;
-                            filterRange = "between" + params.startDate + " to " + params.endDate;
+                            filterRange = "between " + params.startDate + " to " + params.endDate;
                         }
                     }
 
                     if ((params.startDate !== "" && typeof params.startDate !== "undefined") && (params.endDate !== "" && typeof params.endDate !== "undefined")) {
                         params.condition = 'inBetween';
-                        filterRange = "between" + params.startDate + " to " + params.endDate;
+                        filterRange = "between " + params.startDate + " to " + params.endDate;
                     } else if (monthName !== "" && typeof monthName !== "undefined") {
                         params.monthName = monthName;
                         params.condition = 'month';
@@ -267,7 +267,7 @@ module.exports = {
                     filterRange = "for the date " + quarterly;
                 }
                 console.log("PARAMS", JSON.stringify(params));
-                return helper.callDynamicsAPI(params,filterRange).then((result) => {
+                return helper.callDynamicsAPI(params, filterRange).then((result) => {
                     console.log("SKYPE RESPONSE", result);
                     res.json(result);
                 }).catch((err) => {
@@ -329,10 +329,10 @@ module.exports = {
                             rangeToWord = "greater than or equal";
                             break;
                     }
-                    filterRange = "with Revenue " + rangeToWord + " " +number;
+                    filterRange = "with Revenue " + rangeToWord + " " + number;
                 }
                 console.log("PARAMS", JSON.stringify(params));
-                return helper.callDynamicsAPI(params,filterRange).then((result) => {
+                return helper.callDynamicsAPI(params, filterRange).then((result) => {
                     console.log("SKYPE RESPONSE", result);
                     res.json(result);
                 }).catch((err) => {
