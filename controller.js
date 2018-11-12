@@ -1,6 +1,7 @@
 var helper = require('./helper');
 var _ = require('lodash');
 var converter = require('number-to-words');
+tempOppstatus = "";
 
 module.exports = {
     "webhookRequestHandler": (req, res) => {
@@ -65,6 +66,7 @@ module.exports = {
             case 'gt.userquery':
                 console.log("inside gt.userquery");
                 var oppStatus = req.body.queryResult.parameters.oppstatus;
+                tempOppstatus = oppStatus;
                 if (oppStatus == "") {
                     console.log("status not provided");
                     res.json({
@@ -111,6 +113,7 @@ module.exports = {
                 }
                 break;
             case "gt.userquery-applyfilter-date-supplydate":
+                console.log("TEMP OPPSTATUS", tempOppstatus);
                 var date = req.body.queryResult.parameters.date;
                 var oppStatus = req.body.queryResult.parameters.oppstatus;
                 var quarterly = req.body.queryResult.parameters.quarterly;
