@@ -154,7 +154,6 @@ var self = {
                             console.log("ERROR", error);
                             reject("Event request error", error);
                         }
-                        console.log("BODY", body);
                         resolve(body);
                     });
                 }

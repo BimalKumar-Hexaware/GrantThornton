@@ -2,13 +2,13 @@ var helper = require('./helper');
 var _ = require('lodash');
 var converter = require('number-to-words');
 tempOppstatus = "";
+sessionId = "";
 
 module.exports = {
     "webhookRequestHandler": (req, res) => {
         console.log("Dialogflow request body", JSON.stringify(req.body));
         console.log("DF Action", req.body.queryResult.action);
-        sessionId = req.body.session.split('/').pop();
-        console.log("SESSIONID", sessionId);
+
         var params = {};
         switch (req.body.queryResult.action) {
             case "input.welcome":
@@ -478,13 +478,14 @@ module.exports = {
                 console.log("TYPE OS", typeof oppStatus);
                 console.log("opp tstua", oppStatus);
                 var textQuery = `show ${oppStatus} opportunities`;
-                return helper.queryDialogflow(textQuery,sessionId).then((result) => {
+                sessionId = req.body.session.split('/').pop();
+                console.log("SESSIONID", sessionId);
+                return helper.queryDialogflow(textQuery, sessionId).then((result) => {
                     //console.log('result', JSON.parse(result).header);
                     console.log("RES", JSON.stringify(result));
                     var response = {
                         "fulfillmentMessages": result.queryResult.fulfillmentMessages
                     };
-                    console.log("RESPONSE", JSON.stringify(response));
                     res.json(response);
                 }).catch((err) => {
                     console.log("some error occured", err);
