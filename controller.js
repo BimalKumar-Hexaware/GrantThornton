@@ -475,19 +475,12 @@ module.exports = {
                 var oppStatus = req.body.queryResult.parameters.oppstatus;
                 console.log("TYPE OS", typeof oppStatus);
                 console.log("opp tstua", oppStatus);
-                return helper.queryDialogflow("show open opportunities").then((result) => {
+                var textQuery = `show ${oppStatus} opportunities`;
+                return helper.queryDialogflow(textQuery).then((result) => {
                     //console.log('result', JSON.parse(result).header);
                     console.log("RES", JSON.stringify(result));
-                    res.json({
-                        "fulfillmentMessages": [{
-                            "text": {
-                                "text": [
-                                    "It worked."
-                                ]
-                            },
-                            "platform": "SKYPE"
-                        }]
-                    });
+                    var response = result.queryResult.fulfillmentMessages;
+                    res.json({ response });
                 }).catch((err) => {
                     console.log("some error occured", err);
                     res.json({
