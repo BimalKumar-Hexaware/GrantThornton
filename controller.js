@@ -8,7 +8,7 @@ module.exports = {
         console.log("DF Action", req.body.queryResult.action);
         var params = {};
         switch (req.body.queryResult.action) {
-            case "gt.startConversation":
+            case "input.welcome":
                 res.json({
                     "fulfillmentMessages": [{
                         "text": {
@@ -47,11 +47,11 @@ module.exports = {
                     }]
                 });
                 break;
-            case "gt.startConversation-applyfilter":
+            case "DefaultWelcomeIntent-applyfilter":
                 var oppStatus = req.body.queryResult.parameters.oppstatus;
                 console.log("TYPE OS", typeof oppStatus);
                 console.log("opp tstua",oppStatus);
-                console.log("inside gt.startConversation-applyfilter and status is ", oppStatus);
+                console.log("inside DefaultWelcomeIntent-applyfilter ans status is ", oppStatus);
                 res.json({
                     "followupEventInput": {
                         "name": "userquery-event",
