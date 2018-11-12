@@ -7,7 +7,6 @@ module.exports = {
     "webhookRequestHandler": (req, res) => {
         console.log("Dialogflow request body", JSON.stringify(req.body));
         console.log("DF Action", req.body.queryResult.action);
-
         var params = {};
         switch (req.body.queryResult.action) {
             case "input.welcome":
@@ -483,7 +482,16 @@ module.exports = {
                     //console.log('result', JSON.parse(result).header);
                     console.log("RES", JSON.stringify(result));
                     var response = {
-                        "fulfillmentMessages": result.queryResult.fulfillmentMessages
+                        "fulfillmentMessages": result.queryResult.fulfillmentMessages,
+                        "outputContexts": [
+                            {
+                                "name": "projects/grantthornton-f364a/agent/sessions/" + sessionId + "/contexts/selected_status",
+                                "lifespanCount": 5,
+                                "parameters": {
+                                    "oppstatus": oppStatus
+                                }
+                            }
+                        ]
                     };
                     res.json(response);
                 }).catch((err) => {
