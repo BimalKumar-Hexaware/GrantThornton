@@ -261,7 +261,7 @@ module.exports = {
                         params.monthName = monthName;
                         params.condition = 'month';
                         filterRange = "for the month of " + monthName;
-                    } else if (quarterly.length == "" && typeof quarterly !== "undefined") {
+                    } else if (quarterly.length != "" && typeof quarterly !== "undefined") {
                         params.quaterType = quarterly;
                         params.condition = 'quarterly';
                         var quarterString = "";
