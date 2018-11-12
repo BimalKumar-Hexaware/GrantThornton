@@ -482,7 +482,7 @@ module.exports = {
                     var response = {
                         "fulfillmentMessages": result.queryResult.fulfillmentMessages
                     };
-                    console.log("RESPONSE", response);
+                    console.log("RESPONSE", JSON.stringify(response));
                     res.json(response);
                 }).catch((err) => {
                     console.log("some error occured", err);
