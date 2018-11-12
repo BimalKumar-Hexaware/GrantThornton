@@ -144,7 +144,7 @@ var self = {
                         headers:
                         {
                             'content-type': 'application/json',
-                            authorization: 'Bearer ya29.c.ElpSBpCGOqA_yoZ77w4ekmNrmpSYDc9MVKb-EegbAqjIhQdXGqlCiPNYuLz53kc8kMViUX1m7VnsURQLdLG9CQm0NPThISBwYhQM3h2DOi7rkWeZZqTc1XHzGYE'
+                            authorization: tokenData
                         },
                         body: { query_input: { text: { text: textQuery, language_code: 'en-US' } } },
                         json: true
