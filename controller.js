@@ -261,10 +261,25 @@ module.exports = {
                         params.monthName = monthName;
                         params.condition = 'month';
                         filterRange = "for the month of " + monthName;
-                    } else if (quarterly.length !== 0 && typeof quarterly !== "undefined") {
+                    } else if (quarterly.length == "" && typeof quarterly !== "undefined") {
                         params.quaterType = quarterly;
                         params.condition = 'quarterly';
-                        filterRange = "for the quarter " + quarterly;
+                        var quarterString = "";
+                        switch (quarterly) {
+                            case "Q1":
+                                quarterString = "first quarter";
+                                break;
+                            case "Q2":
+                                quarterString = "second quarter";
+                                break;
+                            case "Q3":
+                                quarterString = "third quarter";
+                                break;
+                            case "Q4":
+                                quarterString = "last quarter";
+                                break;
+                        }
+                        filterRange = "for " + quarterString;
                     }
                 } else {
                     params.date = date;
