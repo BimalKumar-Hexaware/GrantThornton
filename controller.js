@@ -49,6 +49,8 @@ module.exports = {
                 break;
             case "DefaultWelcomeIntent-applyfilter":
                 var oppStatus = req.body.queryResult.parameters.oppstatus;
+                console.log("TYPE OS", typeof oppStatus);
+                console.log("opp tstua",oppStatus);
                 console.log("inside DefaultWelcomeIntent-applyfilter ans status is ", oppStatus);
                 res.json({
                     "followupEventInput": {
