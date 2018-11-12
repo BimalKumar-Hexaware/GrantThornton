@@ -475,16 +475,32 @@ module.exports = {
                 var oppStatus = req.body.queryResult.parameters.oppstatus;
                 console.log("TYPE OS", typeof oppStatus);
                 console.log("opp tstua", oppStatus);
-                console.log("gt.combinedRevenueIntent-yes-supplyStatus", oppStatus);
-                res.json({
-                    "followupEventInput": {
-                        "name": "filter-event",
-                        "parameters": {
-                            "oppstatus": oppStatus
-                        },
-                        "languageCode": "en-US"
-                    }
-                }).end();
+                return helper.salesByRegionReport().then((result) => {
+                    //console.log('result', JSON.parse(result).header);
+                    console.log("RES", JSON.stringify(result));
+                    res.json({
+                        "fulfillmentMessages": [{
+                            "text": {
+                                "text": [
+                                    "It worked."
+                                ]
+                            },
+                            "platform": "SKYPE"
+                        }]
+                    });
+                }).catch((err) => {
+                    console.log("some error occured", err);
+                    res.json({
+                        "fulfillmentMessages": [{
+                            "text": {
+                                "text": [
+                                    "Something went wrong when processing your request. Please try again."
+                                ]
+                            },
+                            "platform": "SKYPE"
+                        }]
+                    });
+                });
                 break;
         }
     }
