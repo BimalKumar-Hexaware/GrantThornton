@@ -126,31 +126,49 @@ module.exports = {
                     if (typeof monthName == 'object') {
                         params.startDate = monthName.startDate;
                         params.endDate = monthName.endDate;
-                        filterRange = "between " + params.startDate + " to " + params.endDate;
+                        filterRange = "between " + helper.dateISOToStandardForm(params.startDate) + " to " + helper.dateISOToStandardForm(params.endDate);
                     } else {
-                        if (typeof req.body.queryResult.parameters.startDate != "undefined" && typeof req.body.queryResult.parameters.endDate != "undefined") {
+                        console.log(`ST , END Type ${typeof req.body.queryResult.parameters.startDate}, ${typeof req.body.queryResult.parameters.endDate}`);
+                        if (req.body.queryResult.parameters.startDate != "" && req.body.queryResult.parameters.endDate != "") {
+                            console.log("START DATE END DATE given")
                             params.startDate = req.body.queryResult.parameters.startDate;
                             params.endDate = req.body.queryResult.parameters.endDate;
-                            filterRange = "between " + params.startDate + " to " + params.endDate;
+                            filterRange = "between " + helper.dateISOToStandardForm(params.startDate) + " to " + helper.dateISOToStandardForm(params.endDate);
+                        } else if (req.body.queryResult.parameters.condition != "") {
+                            filterRange = `for ${req.body.queryResult.parameters.condition}`;
                         }
                     }
 
                     if ((params.startDate !== "" && typeof params.startDate !== "undefined") && (params.endDate !== "" && typeof params.endDate !== "undefined")) {
                         params.condition = 'inBetween';
-                        filterRange = "between " + startDate + " to " + endDate;
+                        filterRange = "between " + helper.dateISOToStandardForm(params.startDate) + " to " + helper.dateISOToStandardForm(params.endDate);
                     } else if (monthName !== "" && typeof monthName !== "undefined") {
                         params.monthName = monthName;
                         params.condition = 'month';
                         filterRange = "for the month of " + monthName;
-                    } else if (quarterly.length !== 0 && typeof quarterly !== "undefined") {
+                    } else if (quarterly.length != "" && typeof quarterly !== "undefined") {
                         params.quaterType = quarterly;
                         params.condition = 'quarterly';
-                        filterRange = "for the quarter " + quarterly;
+                        var quarterString = "";
+                        switch (quarterly) {
+                            case "Q1":
+                                quarterString = "first quarter";
+                                break;
+                            case "Q2":
+                                quarterString = "second quarter";
+                                break;
+                            case "Q3":
+                                quarterString = "third quarter";
+                                break;
+                            case "Q4":
+                                quarterString = "last quarter";
+                                break;
+                        }
+                        filterRange = "for " + quarterString;
                     }
                 } else {
                     params.date = date;
-                    //filterRange = "for the date " + quarterly;
-                    filterRange = "for the date " + date;
+                    filterRange = "for the date " + quarterly;
                 }
                 console.log("PARAMS", JSON.stringify(params));
                 return helper.callDynamicsAPI(params, filterRange).then((result) => {
