@@ -2,7 +2,6 @@ var helper = require('./helper');
 var _ = require('lodash');
 var converter = require('number-to-words');
 tempOppstatus = "";
-sessionId = "";
 
 module.exports = {
     "webhookRequestHandler": (req, res) => {
@@ -478,7 +477,7 @@ module.exports = {
                 console.log("TYPE OS", typeof oppStatus);
                 console.log("opp tstua", oppStatus);
                 var textQuery = `show ${oppStatus} opportunities`;
-                sessionId = req.body.session.split('/').pop();
+                var sessionId = req.body.session.split('/').pop();
                 console.log("SESSIONID", sessionId);
                 return helper.queryDialogflow(textQuery, sessionId).then((result) => {
                     //console.log('result', JSON.parse(result).header);

@@ -149,6 +149,7 @@ var self = {
                         body: { query_input: { text: { text: textQuery, language_code: 'en-US' } } },
                         json: true
                     };
+                    console.log("OPTIONS", options);
                     request(options, function (error, response, body) {
                         if (error) {
                             console.log("ERROR", error);
