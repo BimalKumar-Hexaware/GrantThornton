@@ -7,6 +7,8 @@ module.exports = {
     "webhookRequestHandler": (req, res) => {
         console.log("Dialogflow request body", JSON.stringify(req.body));
         console.log("DF Action", req.body.queryResult.action);
+        var sessionId = req.body.session.split('/').pop();
+        console.log("SESSIONID", sessionId);
         var params = {};
         switch (req.body.queryResult.action) {
             case "input.welcome":
@@ -476,7 +478,7 @@ module.exports = {
                 console.log("TYPE OS", typeof oppStatus);
                 console.log("opp tstua", oppStatus);
                 var textQuery = `show ${oppStatus} opportunities`;
-                return helper.queryDialogflow(textQuery).then((result) => {
+                return helper.queryDialogflow(textQuery,sessionId).then((result) => {
                     //console.log('result', JSON.parse(result).header);
                     console.log("RES", JSON.stringify(result));
                     var response = {
