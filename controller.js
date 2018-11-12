@@ -218,7 +218,7 @@ module.exports = {
                         rangeToWord = "greater than or equal";
                         break;
                 }
-                filterRange = "with Revenue " + rangeToWord + number;
+                filterRange = "with revenue " + rangeToWord + " " + number;
                 return helper.callDynamicsAPI(parameters, filterRange).then((result) => {
                     console.log("SKYPE RESPONSE", result);
                     res.json(result);
@@ -340,7 +340,7 @@ module.exports = {
                     console.log("low high defined");
                     params.low = low;
                     params.high = high;
-                    filterRange = "with Revenue between " + low + " to " + high;
+                    filterRange = "with revenue between " + low + " to " + high;
                 } else {
                     console.log("range defined");
                     params.number = number;
@@ -366,7 +366,7 @@ module.exports = {
                             rangeToWord = "greater than or equal";
                             break;
                     }
-                    filterRange = "with Revenue " + rangeToWord + " " + number;
+                    filterRange = "with revenue " + rangeToWord + " " + number;
                 }
                 console.log("PARAMS", JSON.stringify(params));
                 return helper.callDynamicsAPI(params, filterRange).then((result) => {
