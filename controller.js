@@ -243,8 +243,8 @@ module.exports = {
                         params.endDate = monthName.endDate;
                         filterRange = "between " + helper.dateISOToStandardForm(params.startDate) + " to " + helper.dateISOToStandardForm(params.endDate);
                     } else {
-                        if ((typeof req.body.queryResult.parameters.startDate != "undefined" && typeof req.body.queryResult.parameters.endDate != "undefined") ||
-                            (req.body.queryResult.parameters.startDate != "" && req.body.queryResult.parameters.endDate != "")) {
+                        console.log(`ST , END Type ${typeof req.body.queryResult.parameters.startDate}, ${typeof req.body.queryResult.parameters.endDate}`);
+                        if (req.body.queryResult.parameters.startDate != "" && req.body.queryResult.parameters.endDate != "") {
                             console.log("START DATE END DATE given")
                             params.startDate = req.body.queryResult.parameters.startDate;
                             params.endDate = req.body.queryResult.parameters.endDate;
