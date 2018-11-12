@@ -32,7 +32,7 @@ var self = {
         response.fulfillmentMessages.push({
             "text": {
                 "text": [
-                    "Showing opportunities " + filterRange
+                    filterRange
                 ]
             },
             "platform": "SKYPE"

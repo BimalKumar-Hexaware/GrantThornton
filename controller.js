@@ -50,7 +50,7 @@ module.exports = {
             case "DefaultWelcomeIntent-applyfilter":
                 var oppStatus = req.body.queryResult.parameters.oppstatus;
                 console.log("TYPE OS", typeof oppStatus);
-                console.log("opp tstua",oppStatus);
+                console.log("opp tstua", oppStatus);
                 console.log("inside DefaultWelcomeIntent-applyfilter ans status is ", oppStatus);
                 res.json({
                     "followupEventInput": {
@@ -128,26 +128,26 @@ module.exports = {
                     if (typeof monthName == 'object') {
                         params.startDate = monthName.startDate;
                         params.endDate = monthName.endDate;
-                        filterRange = "between " + helper.dateISOToStandardForm(params.startDate) + " to " + helper.dateISOToStandardForm(params.endDate);
+                        filterRange = "Showing " + oppStatus + " opportunities between " + helper.dateISOToStandardForm(params.startDate) + " to " + helper.dateISOToStandardForm(params.endDate);
                     } else {
                         console.log(`ST , END Type ${typeof req.body.queryResult.parameters.startDate}, ${typeof req.body.queryResult.parameters.endDate}`);
                         if (req.body.queryResult.parameters.startDate != "" && req.body.queryResult.parameters.endDate != "") {
                             console.log("START DATE END DATE given")
                             params.startDate = req.body.queryResult.parameters.startDate;
                             params.endDate = req.body.queryResult.parameters.endDate;
-                            filterRange = "between " + helper.dateISOToStandardForm(params.startDate) + " to " + helper.dateISOToStandardForm(params.endDate);
+                            filterRange = "Showing " + oppStatus + " opportunities between " + helper.dateISOToStandardForm(params.startDate) + " to " + helper.dateISOToStandardForm(params.endDate);
                         } else if (req.body.queryResult.parameters.condition != "") {
-                            filterRange = `for ${req.body.queryResult.parameters.condition}`;
+                            filterRange = `Showing ${oppStatus} opportunities for ${req.body.queryResult.parameters.condition}`;
                         }
                     }
 
                     if ((params.startDate !== "" && typeof params.startDate !== "undefined") && (params.endDate !== "" && typeof params.endDate !== "undefined")) {
                         params.condition = 'inBetween';
-                        filterRange = "between " + helper.dateISOToStandardForm(params.startDate) + " to " + helper.dateISOToStandardForm(params.endDate);
+                        filterRange = "Showing" + oppStatus + " opportunities between " + helper.dateISOToStandardForm(params.startDate) + " to " + helper.dateISOToStandardForm(params.endDate);
                     } else if (monthName !== "" && typeof monthName !== "undefined") {
                         params.monthName = monthName;
                         params.condition = 'month';
-                        filterRange = "for the month of " + monthName;
+                        filterRange = "Showing " + oppStatus + " opportunities for the month of " + monthName;
                     } else if (quarterly.length != "" && typeof quarterly !== "undefined") {
                         params.quaterType = quarterly;
                         params.condition = 'quarterly';
@@ -166,11 +166,11 @@ module.exports = {
                                 quarterString = "last quarter";
                                 break;
                         }
-                        filterRange = "for " + quarterString;
+                        filterRange = "Showing " + oppStatus + " opportunities for " + quarterString;
                     }
                 } else {
                     params.date = date;
-                    filterRange = `for the date ${helper.dateISOToStandardForm(date)}`;
+                    filterRange = `Showing ${oppStatus} opportunities for the date ${helper.dateISOToStandardForm(date)}`;
                 }
                 console.log("PARAMS", JSON.stringify(params));
                 return helper.callDynamicsAPI(params, filterRange).then((result) => {
@@ -199,28 +199,36 @@ module.exports = {
                 console.log("Parameters", JSON.stringify(parameters));
                 var revenuerange = req.body.queryResult.parameters.ranges;
                 var number = req.body.queryResult.parameters.number;
-                var rangeToWord;
-                switch (revenuerange) {
-                    case 'eq':
-                        rangeToWord = "equals";
-                        break;
-                    case 'ne':
-                        rangeToWord = "not equal";
-                        break;
-                    case 'le':
-                        rangeToWord = "less than or equal";
-                        break;
-                    case 'lt':
-                        rangeToWord = "less than";
-                        break;
-                    case 'gt':
-                        rangeToWord = "greater than";
-                        break;
-                    case 'ge':
-                        rangeToWord = "greater than or equal";
-                        break;
+
+                if (revenuerange != "") {
+                    var rangeToWord;
+                    switch (revenuerange) {
+                        case 'eq':
+                            rangeToWord = "equals";
+                            break;
+                        case 'ne':
+                            rangeToWord = "not equal";
+                            break;
+                        case 'le':
+                            rangeToWord = "less than or equal";
+                            break;
+                        case 'lt':
+                            rangeToWord = "less than";
+                            break;
+                        case 'gt':
+                            rangeToWord = "greater than";
+                            break;
+                        case 'ge':
+                            rangeToWord = "greater than or equal";
+                            break;
+                    }
+                    filterRange = "with revenue " + rangeToWord + " " + number;
+                } else {
+                    console.log("low high defined");
+                    params.low = low;
+                    params.high = high;
+                    filterRange = "Showing " + oppStatus + " opportunities with revenue between " + low + " to " + high;
                 }
-                filterRange = "with revenue " + rangeToWord + " " + number;
                 return helper.callDynamicsAPI(parameters, filterRange).then((result) => {
                     console.log("SKYPE RESPONSE", result);
                     res.json(result);
@@ -261,26 +269,26 @@ module.exports = {
                     if (typeof monthName == 'object') {
                         params.startDate = monthName.startDate;
                         params.endDate = monthName.endDate;
-                        filterRange = "between " + helper.dateISOToStandardForm(params.startDate) + " to " + helper.dateISOToStandardForm(params.endDate);
+                        filterRange = "Showing " + oppStatus + " opportunities between " + helper.dateISOToStandardForm(params.startDate) + " to " + helper.dateISOToStandardForm(params.endDate);
                     } else {
                         console.log(`ST , END Type ${typeof req.body.queryResult.parameters.startDate}, ${typeof req.body.queryResult.parameters.endDate}`);
                         if (req.body.queryResult.parameters.startDate != "" && req.body.queryResult.parameters.endDate != "") {
                             console.log("START DATE END DATE given")
                             params.startDate = req.body.queryResult.parameters.startDate;
                             params.endDate = req.body.queryResult.parameters.endDate;
-                            filterRange = "between " + helper.dateISOToStandardForm(params.startDate) + " to " + helper.dateISOToStandardForm(params.endDate);
+                            filterRange = "Showing " + oppStatus + " opportunities between " + helper.dateISOToStandardForm(params.startDate) + " to " + helper.dateISOToStandardForm(params.endDate);
                         } else if (req.body.queryResult.parameters.condition != "") {
-                            filterRange = `for ${req.body.queryResult.parameters.condition}`;
+                            filterRange = `Showing ${oppStatus} opportunities for ${req.body.queryResult.parameters.condition}`;
                         }
                     }
 
                     if ((params.startDate !== "" && typeof params.startDate !== "undefined") && (params.endDate !== "" && typeof params.endDate !== "undefined")) {
                         params.condition = 'inBetween';
-                        filterRange = "between " + helper.dateISOToStandardForm(params.startDate) + " to " + helper.dateISOToStandardForm(params.endDate);
+                        filterRange = "Showing" + oppStatus + " opportunities between " + helper.dateISOToStandardForm(params.startDate) + " to " + helper.dateISOToStandardForm(params.endDate);
                     } else if (monthName !== "" && typeof monthName !== "undefined") {
                         params.monthName = monthName;
                         params.condition = 'month';
-                        filterRange = "for the month of " + monthName;
+                        filterRange = "Showing " + oppStatus + " opportunities for the month of " + monthName;
                     } else if (quarterly.length != "" && typeof quarterly !== "undefined") {
                         params.quaterType = quarterly;
                         params.condition = 'quarterly';
@@ -299,11 +307,11 @@ module.exports = {
                                 quarterString = "last quarter";
                                 break;
                         }
-                        filterRange = "for " + quarterString;
+                        filterRange = "Showing " + oppStatus + " opportunities for " + quarterString;
                     }
                 } else {
                     params.date = date;
-                    filterRange = `for the date ${helper.dateISOToStandardForm(date)}`;
+                    filterRange = `Showing ${oppStatus} opportunities for the date ${helper.dateISOToStandardForm(date)}`;
                 }
                 console.log("PARAMS", JSON.stringify(params));
                 return helper.callDynamicsAPI(params, filterRange).then((result) => {
@@ -342,7 +350,7 @@ module.exports = {
                     console.log("low high defined");
                     params.low = low;
                     params.high = high;
-                    filterRange = "with revenue between " + low + " to " + high;
+                    filterRange = "Showing " + oppStatus + " opportunities with revenue between " + low + " to " + high;
                 } else {
                     console.log("range defined");
                     params.number = number;
@@ -368,7 +376,7 @@ module.exports = {
                             rangeToWord = "greater than or equal";
                             break;
                     }
-                    filterRange = "with revenue " + rangeToWord + " " + number;
+                    filterRange = "Showing " + oppStatus + " opportunities with revenue " + rangeToWord + " " + number;
                 }
                 console.log("PARAMS", JSON.stringify(params));
                 return helper.callDynamicsAPI(params, filterRange).then((result) => {
