@@ -7,7 +7,7 @@ module.exports = {
     "webhookRequestHandler": (req, res) => {
         console.log("Dialogflow request body", JSON.stringify(req.body));
         console.log("DF Action", req.body.queryResult.action);
-        var sessionId = req.body.session.split('/').pop();
+        sessionId = req.body.session.split('/').pop();
         console.log("SESSIONID", sessionId);
         var params = {};
         switch (req.body.queryResult.action) {
