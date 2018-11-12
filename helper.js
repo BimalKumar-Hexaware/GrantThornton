@@ -113,7 +113,7 @@ var self = {
         formattedDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
         return formattedDate;
     },
-    "queryDialogflow": function (textQuery) {
+    "queryDialogflow": function (textQuery, sessionId) {
         return new Promise(function (resolve, reject) {
             async.waterfall([
                 function (cb) {
@@ -136,7 +136,7 @@ var self = {
                         }
                     });
                 },
-                function (tokenData, sessionId) {
+                function (tokenData) {
                     console.log("passed tokrn", tokenData);
                     var options = {
                         method: 'POST',
