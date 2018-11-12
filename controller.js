@@ -482,16 +482,7 @@ module.exports = {
                     //console.log('result', JSON.parse(result).header);
                     console.log("RES", JSON.stringify(result));
                     var response = {
-                        "fulfillmentMessages": result.queryResult.fulfillmentMessages,
-                        "outputContexts": [
-                            {
-                                "name": "projects/grantthornton-f364a/agent/sessions/" + sessionId + "/contexts/selected_status",
-                                "lifespanCount": 5,
-                                "parameters": {
-                                    "oppstatus": oppStatus
-                                }
-                            }
-                        ]
+                        "fulfillmentMessages": result.queryResult.fulfillmentMessages
                     };
                     res.json(response);
                 }).catch((err) => {
