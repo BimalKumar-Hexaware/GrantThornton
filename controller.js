@@ -252,7 +252,7 @@ module.exports = {
 
                     if ((params.startDate !== "" && typeof params.startDate !== "undefined") && (params.endDate !== "" && typeof params.endDate !== "undefined")) {
                         params.condition = 'inBetween';
-                        filterRange = "between" + startDate + " to " + endDate;
+                        filterRange = "between" + params.startDate + " to " + params.endDate;
                     } else if (monthName !== "" && typeof monthName !== "undefined") {
                         params.monthName = monthName;
                         params.condition = 'month';
