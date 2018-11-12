@@ -17,7 +17,7 @@ module.exports = {
                             ]
                         },
                         "platform": "SKYPE"
-                    }, {
+                    }/*, {
                         "card": {
                             "title": "Tell me what opportunity would you like to see?",
                             "buttons": [
@@ -44,7 +44,7 @@ module.exports = {
                             ]
                         },
                         "platform": "SKYPE"
-                    }]
+                    }*/]
                 });
                 break;
             case "DefaultWelcomeIntent-applyfilter":
