@@ -29,14 +29,14 @@ var self = {
         var response = {
             "fulfillmentMessages": []
         };
-        /*response.fulfillmentMessages.push({
+        response.fulfillmentMessages.push({
             "text": {
                 "text": [
                     "Showing opportunities " + filterRange
                 ]
             },
             "platform": "SKYPE"
-        });*/
+        });
         console.log("F RANGE", filterRange);
         if (typeof result.value == "undefined" || result.value == "") {
             response.fulfillmentMessages.push({
