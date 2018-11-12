@@ -55,7 +55,7 @@ module.exports = {
                 console.log("inside DefaultWelcomeIntent-applyfilter ans status is ", oppStatus);
                 res.json({
                     "followupEventInput": {
-                        "name": "userquery-event",
+                        "name": "filter-event",
                         "parameters": {
                             "oppstatus": oppStatus
                         },
@@ -430,6 +430,61 @@ module.exports = {
                         }]
                     });
                 });
+                break;
+            case "gt.combinedRevenueIntent-yes":
+                console.log("inside gt.combinedRevenueIntent-yes-supplyStatus");
+                res.json({
+                    "fulfillmentMessages": [{
+                        "text": {
+                            "text": [
+                                "I can help you in knowing about the opportunities."
+                            ]
+                        },
+                        "platform": "SKYPE"
+                    }, {
+                        "card": {
+                            "title": "What opportunity would you like to see?",
+                            "buttons": [
+                                {
+                                    "text": "Open",
+                                    "postback": "open"
+                                },
+                                {
+                                    "text": "Closed",
+                                    "postback": "closed"
+                                },
+                                {
+                                    "text": "Won",
+                                    "postback": "won"
+                                },
+                                {
+                                    "text": "Lost",
+                                    "postback": "lost"
+                                },
+                                {
+                                    "text": "All",
+                                    "postback": "all"
+                                }
+                            ]
+                        },
+                        "platform": "SKYPE"
+                    }]
+                });
+                break;
+            case "gt.combinedRevenueIntent-yes-supplyStatus":
+                var oppStatus = req.body.queryResult.parameters.oppstatus;
+                console.log("TYPE OS", typeof oppStatus);
+                console.log("opp tstua", oppStatus);
+                console.log("gt.combinedRevenueIntent-yes-supplyStatus", oppStatus);
+                res.json({
+                    "followupEventInput": {
+                        "name": "filter-event",
+                        "parameters": {
+                            "oppstatus": oppStatus
+                        },
+                        "languageCode": "en-US"
+                    }
+                }).end();
                 break;
         }
     }
