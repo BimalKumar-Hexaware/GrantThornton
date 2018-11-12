@@ -479,8 +479,11 @@ module.exports = {
                 return helper.queryDialogflow(textQuery).then((result) => {
                     //console.log('result', JSON.parse(result).header);
                     console.log("RES", JSON.stringify(result));
-                    var response = result.queryResult.fulfillmentMessages;
-                    res.json({ response });
+                    var response = {
+                        "fulfillmentMessages": result.queryResult.fulfillmentMessages
+                    };
+                    console.log("RESPONSE", response);
+                    res.json(response);
                 }).catch((err) => {
                     console.log("some error occured", err);
                     res.json({
