@@ -52,7 +52,7 @@ module.exports = {
                 console.log("inside DefaultWelcomeIntent-applyfilter ans status is ", oppStatus);
                 res.json({
                     "followupEventInput": {
-                        "name": "userquery-event",
+                        "name": "filter-event",
                         "parameters": {
                             "oppstatus": oppStatus
                         },
