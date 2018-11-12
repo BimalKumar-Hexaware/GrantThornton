@@ -13,7 +13,7 @@ module.exports = {
                     "fulfillmentMessages": [{
                         "text": {
                             "text": [
-                                "Hi, I am Macy. Your Grand Thornton sales buddy. I can help you in knowing about the opportunities."
+                                "Hi, I am Macy, your Grand Thornton sales buddy. I can help you in knowing about the opportunities."
                             ]
                         },
                         "platform": "SKYPE"
@@ -60,7 +60,7 @@ module.exports = {
                         },
                         "languageCode": "en-US"
                     }
-                });
+                }).end();
                 break;
             case 'gt.userquery':
                 console.log("inside gt.userquery");
