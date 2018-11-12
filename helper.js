@@ -103,6 +103,11 @@ var self = {
                 resolve(body);
             });
         });
+    },
+    "dateISOToStandardForm":function(dateString) {
+        date = new Date(dateString);
+        formattedDate = date.getFullYear()+'-' + (date.getMonth()+1) + '-'+date.getDate();
+        return formattedDate;
     }
 };
 
