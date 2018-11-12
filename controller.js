@@ -244,6 +244,7 @@ module.exports = {
                         filterRange = "between " + helper.dateISOToStandardForm(params.startDate) + " to " + helper.dateISOToStandardForm(params.endDate);
                     } else {
                         if (typeof req.body.queryResult.parameters.startDate != "undefined" && typeof req.body.queryResult.parameters.endDate != "undefined") {
+                            console.log("START DATE END DATE given")
                             params.startDate = req.body.queryResult.parameters.startDate;
                             params.endDate = req.body.queryResult.parameters.endDate;
                             filterRange = "between " + helper.dateISOToStandardForm(params.startDate) + " to " + helper.dateISOToStandardForm(params.endDate);
