@@ -227,7 +227,7 @@ module.exports = {
                     console.log("low high defined");
                     params.low = low;
                     params.high = high;
-                    filterRange = "Showing " + parameters.oppstatus + " opportunities with revenue between " + parameters.low + " to " + parameters.high;
+                    filterRange = "Showing opportunities with revenue between " + parameters.low + " to " + parameters.high;
                 }
                 return helper.callDynamicsAPI(parameters, filterRange).then((result) => {
                     console.log("SKYPE RESPONSE", result);
