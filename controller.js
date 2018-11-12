@@ -222,7 +222,7 @@ module.exports = {
                             rangeToWord = "greater than or equal";
                             break;
                     }
-                    filterRange = "with revenue " + rangeToWord + " " + number;
+                    filterRange = "Showing opportunities with revenue " + rangeToWord + " " + number;
                 } else {
                     console.log("low high defined");
                     params.low = low;
