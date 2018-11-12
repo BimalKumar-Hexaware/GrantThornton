@@ -19,7 +19,7 @@ module.exports = {
                         "platform": "SKYPE"
                     }, {
                         "card": {
-                            "title": "Tell me what opportunity would you like to see?",
+                            "title": "What opportunity would you like to see?",
                             "buttons": [
                                 {
                                     "text": "Open",
@@ -52,7 +52,7 @@ module.exports = {
                 console.log("inside DefaultWelcomeIntent-applyfilter ans status is ", oppStatus);
                 res.json({
                     "followupEventInput": {
-                        "name": "filter-event",
+                        "name": "userquery-event",
                         "parameters": {
                             "oppstatus": oppStatus
                         },
