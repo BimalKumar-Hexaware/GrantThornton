@@ -168,7 +168,7 @@ module.exports = {
                     }
                 } else {
                     params.date = date;
-                    filterRange = "for the date " + quarterly;
+                    filterRange = `for the date ${helper.dateISOToStandardForm(date)}`;
                 }
                 console.log("PARAMS", JSON.stringify(params));
                 return helper.callDynamicsAPI(params, filterRange).then((result) => {
