@@ -37,6 +37,7 @@ var self = {
             },
             "platform": "SKYPE"
         });*/
+        console.log("F RANGE", filterRange);
         if (typeof result.value == "undefined" || result.value == "") {
             response.fulfillmentMessages.push({
                 "text": {
