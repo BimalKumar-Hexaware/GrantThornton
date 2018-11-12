@@ -113,9 +113,9 @@ module.exports = {
                 }
                 break;
             case "gt.userquery-applyfilter-date-supplydate":
-                console.log("TEMP OPPSTATUS", tempOppstatus);
                 var date = req.body.queryResult.parameters.date;
-                var oppStatus = req.body.queryResult.parameters.oppstatus;
+                console.log("TEMP OPPSTATUS", tempOppstatus);
+                var oppStatus = tempOppstatus;
                 var quarterly = req.body.queryResult.parameters.quarterly;
                 var monthName = req.body.queryResult.parameters.monthname;
                 var condition = req.body.queryResult.parameters.condition;
@@ -194,6 +194,8 @@ module.exports = {
                 });
                 break;
             case "gt.userquery-applyfilter-revenue-ranges":
+                console.log("TEMP OPPSTATUS", tempOppstatus);
+                var oppStatus = tempOppstatus;
                 _.forEach(req.body.queryResult.outputContexts, function (value, key) {
                     if (_.includes(value.name, 'selected_status')) {
                         parameters = value.parameters;
@@ -225,12 +227,12 @@ module.exports = {
                             rangeToWord = "greater than or equal";
                             break;
                     }
-                    filterRange = "Showing opportunities with revenue " + rangeToWord + " " + number;
+                    filterRange = "Showing " + oppStatus + " opportunities with revenue " + rangeToWord + " " + number;
                 } else {
                     console.log("low high defined");
                     params.low = low;
                     params.high = high;
-                    filterRange = "Showing opportunities with revenue between " + parameters.low + " to " + parameters.high;
+                    filterRange = "Showing  " + oppStatus + " opportunities with revenue between " + parameters.low + " to " + parameters.high;
                 }
                 return helper.callDynamicsAPI(parameters, filterRange).then((result) => {
                     console.log("SKYPE RESPONSE", result);
