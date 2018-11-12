@@ -164,7 +164,8 @@ var self = {
                     reject("Something went wrong!");
                 }
             });
-        }
+        });
+    }
 };
 
-    module.exports = self;
+module.exports = self;

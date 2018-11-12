@@ -475,7 +475,7 @@ module.exports = {
                 var oppStatus = req.body.queryResult.parameters.oppstatus;
                 console.log("TYPE OS", typeof oppStatus);
                 console.log("opp tstua", oppStatus);
-                return helper.salesByRegionReport().then((result) => {
+                return helper.queryDialogflow("show open opportunities").then((result) => {
                     //console.log('result', JSON.parse(result).header);
                     console.log("RES", JSON.stringify(result));
                     res.json({
