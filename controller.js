@@ -103,8 +103,6 @@ module.exports = {
                 break;
             case "gt.userquery-applyfilter-date-supplydate":
                 var date = req.body.queryResult.parameters.date;
-                console.log("TEMP OPPSTATUS", tempOppstatus);
-                var oppStatus = tempOppstatus;
                 var quarterly = req.body.queryResult.parameters.quarterly;
                 var monthName = req.body.queryResult.parameters.monthname;
                 var condition = req.body.queryResult.parameters.condition;
@@ -113,6 +111,7 @@ module.exports = {
                         params = value.parameters;
                     }
                 });
+                var oppStatus = params.oppstatus;
                 console.log("Parameters", JSON.stringify(params));
                 if (date == "" || typeof date == "undefined") {
                     console.log("date not provided");
