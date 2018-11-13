@@ -50,7 +50,8 @@ module.exports = {
                     tempOppstatus = oppStatus;
                     if (oppStatus == "") {
                         console.log("status not provided");
-                        res.json();
+                        var menuPaylod = helper.mainMenuPayload(false);
+                        res.json(menuPaylod);
                     } else {
                         console.log("status provided");
                         res.json({
