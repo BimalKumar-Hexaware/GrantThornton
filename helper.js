@@ -68,7 +68,7 @@ var self = {
                 response.fulfillmentMessages.push({
                     "text": {
                         "text": [
-                            "There is no matching opportunities found for your request."
+                            "There is no matching opportunities found for your request.Is there anything else that I can help you with?"
                         ]
                     },
                     "platform": "SKYPE"
