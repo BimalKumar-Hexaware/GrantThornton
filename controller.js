@@ -53,16 +53,7 @@ module.exports = {
                                 "oppstatus": oppStatus
                             },
                             "languageCode": "en-US"
-                        },
-                        "outputContexts": [
-                            {
-                                "name": session + "/contexts/selected_status",
-                                "lifespanCount": 5,
-                                "parameters": {
-                                    "oppstatus": oppStatus
-                                }
-                            }
-                        ]
+                        }
                     });
                 } else {
                     console.log("FROM UTTERANCE");
@@ -81,11 +72,19 @@ module.exports = {
                                     "oppstatus": oppStatus
                                 },
                                 "languageCode": "en-US"
-                            }
+                            },
+                            "outputContexts": [
+                                {
+                                    "name": session + "/contexts/selected_status",
+                                    "lifespanCount": 5,
+                                    "parameters": {
+                                        "oppstatus": oppStatus
+                                    }
+                                }
+                            ]
                         });
                     }
                 }
-
                 break;
             case "gt.userquery-applyfilter-date-supplydate":
                 var date = req.body.queryResult.parameters.date;
