@@ -47,6 +47,7 @@ module.exports = {
             case 'gt.userquery':
                 console.log("inside gt.userquery");
                 var oppStatus = "";
+
                 if (req.body.queryResult.queryText == "userquery-event") {
                     console.log("FROM EVENT d");
                     oppStatus = req.body.originalDetectIntentRequest.payload.data.text;
@@ -72,12 +73,13 @@ module.exports = {
                     });
                 } else {
                     console.log("FROM UTTERANCE");
+                    oppStatus = req.body.queryResult.parameters.oppstatus;
                     if (oppStatus == "") {
                         console.log("status not provided");
                         var menuPaylod = helper.mainMenuPayload(false);
                         res.json(menuPaylod);
                     } else {
-                        oppStatus = req.body.queryResult.parameters.oppstatus;
+                        
                         tempOppstatus = oppStatus;
                         console.log("status provided");
                         res.json({
