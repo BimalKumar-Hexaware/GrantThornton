@@ -10,43 +10,8 @@ module.exports = {
         var params = {};
         switch (req.body.queryResult.action) {
             case "input.welcome":
-                res.json({
-                    "fulfillmentMessages": [{
-                        "text": {
-                            "text": [
-                                "Hi, I am Macy, your Grand Thornton sales buddy. I can help you in knowing about the opportunities."
-                            ]
-                        },
-                        "platform": "SKYPE"
-                    }, {
-                        "card": {
-                            "title": "What opportunity would you like to see?",
-                            "buttons": [
-                                {
-                                    "text": "Open",
-                                    "postback": "open"
-                                },
-                                {
-                                    "text": "Closed",
-                                    "postback": "closed"
-                                },
-                                {
-                                    "text": "Won",
-                                    "postback": "won"
-                                },
-                                {
-                                    "text": "Lost",
-                                    "postback": "lost"
-                                },
-                                {
-                                    "text": "All",
-                                    "postback": "all"
-                                }
-                            ]
-                        },
-                        "platform": "SKYPE"
-                    }]
-                });
+                var menuPaylod = helper.mainMenuPayload(true);
+                res.json(menuPaylod);
                 break;
             case "DefaultWelcomeIntent-applyfilter":
                 var oppStatus = req.body.queryResult.parameters.oppstatus;
@@ -55,7 +20,7 @@ module.exports = {
                 console.log("inside DefaultWelcomeIntent-applyfilter ans status is ", oppStatus);
                 res.json({
                     "followupEventInput": {
-                        "name": "filter-event",
+                        "name": "userquery-event",
                         "parameters": {
                             "oppstatus": oppStatus
                         },
@@ -69,7 +34,7 @@ module.exports = {
                 if (req.body.queryResult.queryText == "userquery-event") {
                     console.log("FROM EVENT d");
                     oppStatus = req.body.originalDetectIntentRequest.payload.data.text;
-                    console.log("oppStatus",oppStatus);
+                    console.log("oppStatus", oppStatus);
                     res.json({
                         "followupEventInput": {
                             "name": "filter-event",
@@ -85,36 +50,7 @@ module.exports = {
                     tempOppstatus = oppStatus;
                     if (oppStatus == "") {
                         console.log("status not provided");
-                        res.json({
-                            "fulfillmentMessages": [{
-                                "card": {
-                                    "title": "What opportunity would you like to see?",
-                                    "buttons": [
-                                        {
-                                            "text": "Open",
-                                            "postback": "open"
-                                        },
-                                        {
-                                            "text": "Closed",
-                                            "postback": "closed"
-                                        },
-                                        {
-                                            "text": "Won",
-                                            "postback": "won"
-                                        },
-                                        {
-                                            "text": "Lost",
-                                            "postback": "lost"
-                                        },
-                                        {
-                                            "text": "All",
-                                            "postback": "all"
-                                        }
-                                    ]
-                                },
-                                "platform": "SKYPE"
-                            }]
-                        });
+                        res.json();
                     } else {
                         console.log("status provided");
                         res.json({
@@ -451,43 +387,8 @@ module.exports = {
                 break;
             case "gt.combinedRevenueIntent-yes":
                 console.log("inside gt.combinedRevenueIntent-yes-supplyStatus");
-                res.json({
-                    "fulfillmentMessages": [{
-                        "text": {
-                            "text": [
-                                "I can help you in knowing about the opportunities."
-                            ]
-                        },
-                        "platform": "SKYPE"
-                    }, {
-                        "card": {
-                            "title": "What opportunity would you like to see?",
-                            "buttons": [
-                                {
-                                    "text": "Open",
-                                    "postback": "open"
-                                },
-                                {
-                                    "text": "Closed",
-                                    "postback": "closed"
-                                },
-                                {
-                                    "text": "Won",
-                                    "postback": "won"
-                                },
-                                {
-                                    "text": "Lost",
-                                    "postback": "lost"
-                                },
-                                {
-                                    "text": "All",
-                                    "postback": "all"
-                                }
-                            ]
-                        },
-                        "platform": "SKYPE"
-                    }]
-                });
+                var menuPaylod = helper.mainMenuPayload(false);
+                res.json(menuPaylod);
                 break;
             case "gt.combinedRevenueIntent-yes-supplyStatus":
                 var oppStatus = req.body.queryResult.parameters.oppstatus;
@@ -502,29 +403,66 @@ module.exports = {
                         "languageCode": "en-US"
                     }
                 }).end();
-                /*var textQuery = `show ${oppStatus} opportunities`;
-                var sessionId = req.body.session.split('/').pop();
-                console.log("SESSIONID", sessionId);
-                return helper.queryDialogflow(textQuery, sessionId).then((result) => {
-                    //console.log('result', JSON.parse(result).header);
-                    console.log("RES", JSON.stringify(result));
-                    var response = {
-                        "fulfillmentMessages": result.queryResult.fulfillmentMessages
-                    };
-                    res.json(response).end();
-                }).catch((err) => {
-                    console.log("some error occured", err);
-                    res.json({
-                        "fulfillmentMessages": [{
-                            "text": {
-                                "text": [
-                                    "Something went wrong when processing your request. Please try again."
-                                ]
-                            },
-                            "platform": "SKYPE"
-                        }]
-                    });
-                });*/
+                break;
+            case "gt.userquery-applyfilter-date-supplydate-yes":
+                console.log("inside gt.userquery-applyfilter-date-supplydate-yes");
+                var menuPaylod = helper.mainMenuPayload(false);
+                res.json(menuPaylod);
+                break;
+            case "gt.userquery-applyfilter-date-supplydate-yes-applyfilter":
+                console.log("from gt.userquery-applyfilter-date-supplydate-yes-applyfilter");
+                var oppStatus = req.body.queryResult.parameters.oppstatus;
+                console.log("TYPE OS", typeof oppStatus);
+                console.log("opp tstua", oppStatus);
+                res.json({
+                    "followupEventInput": {
+                        "name": "userquery-event",
+                        "parameters": {
+                            "oppstatus": oppStatus
+                        },
+                        "languageCode": "en-US"
+                    }
+                }).end();
+                break;
+            case "gt.userquery-applyfilter-revenue-ranges-yes":
+                console.log("insside gt.userquery-applyfilter-revenue-ranges-yes");
+                var menuPaylod = helper.mainMenuPayload(false);
+                res.json(menuPaylod);
+                break;
+            case "gt.userquery-applyfilter-revenue-ranges-yes-applyfilter":
+                console.log("inside gt.userquery-applyfilter-revenue-ranges-yes-applyfilter");
+                var oppStatus = req.body.queryResult.parameters.oppstatus;
+                console.log("TYPE OS", typeof oppStatus);
+                console.log("opp tstua", oppStatus);
+                res.json({
+                    "followupEventInput": {
+                        "name": "userquery-event",
+                        "parameters": {
+                            "oppstatus": oppStatus
+                        },
+                        "languageCode": "en-US"
+                    }
+                }).end();
+                break;
+            case "gt.combinedDateIntent-yes":
+                console.log("inside gt.combinedDateIntent-yes");
+                var menuPaylod = helper.mainMenuPayload(false);
+                res.json(menuPaylod);
+                break;
+            case "gt.combinedDateIntent-yes-applyfilter":
+                console.log("inside gt.combinedDateIntent-yes-applyfilter");
+                var oppStatus = req.body.queryResult.parameters.oppstatus;
+                console.log("TYPE OS", typeof oppStatus);
+                console.log("opp tstua", oppStatus);
+                res.json({
+                    "followupEventInput": {
+                        "name": "userquery-event",
+                        "parameters": {
+                            "oppstatus": oppStatus
+                        },
+                        "languageCode": "en-US"
+                    }
+                }).end();
                 break;
         }
     }

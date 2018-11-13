@@ -113,6 +113,80 @@ var self = {
         formattedDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
         return formattedDate;
     },
+    "mainMenuPayload": function (fromWelcomeIntent) {
+        var openingMessage = (fromWelcomeIntent) ? "Hi, I am Macy, your Grand Thornton sales buddy. I can help you in knowing about the opportunities." : "I can help you in knowing about the opportunities.";
+        var payload = {
+            "fulfillmentMessages": [{
+                "text": {
+                    "text": [
+                        openingMessage
+                    ]
+                },
+                "platform": "SKYPE"
+            }, {
+                "card": {
+                    "title": "What opportunity would you like to see?",
+                    "buttons": [
+                        {
+                            "text": "Open",
+                            "postback": "open"
+                        },
+                        {
+                            "text": "Closed",
+                            "postback": "closed"
+                        },
+                        {
+                            "text": "Won",
+                            "postback": "won"
+                        },
+                        {
+                            "text": "Lost",
+                            "postback": "lost"
+                        },
+                        {
+                            "text": "All",
+                            "postback": "all"
+                        }
+                    ]
+                },
+                "platform": "SKYPE"
+            }]
+        };
+        return payload;
+    },
+    "opportunityMenu": function () {
+        var payload = {
+            "fulfillmentMessages": [{
+                "card": {
+                    "title": "What opportunity would you like to see?",
+                    "buttons": [
+                        {
+                            "text": "Open",
+                            "postback": "open"
+                        },
+                        {
+                            "text": "Closed",
+                            "postback": "closed"
+                        },
+                        {
+                            "text": "Won",
+                            "postback": "won"
+                        },
+                        {
+                            "text": "Lost",
+                            "postback": "lost"
+                        },
+                        {
+                            "text": "All",
+                            "postback": "all"
+                        }
+                    ]
+                },
+                "platform": "SKYPE"
+            }]
+        };
+        return payload;
+    },
     "queryDialogflow": function (textQuery, sessionId) {
         return new Promise(function (resolve, reject) {
             async.waterfall([
