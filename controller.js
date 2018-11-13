@@ -132,7 +132,8 @@ module.exports = {
                             filterRange = "Showing " + oppStatus + " opportunities between " + helper.dateISOToStandardForm(params.startDate) + " to " + helper.dateISOToStandardForm(params.endDate);
                         } else if (req.body.queryResult.parameters.condition != "") {
                             console.log(oppStatus + " ," + tempOppstatus);
-                            filterRange = `Showing ${oppStatus} opportunities for ${req.body.queryResult.parameters.condition}`;
+                            var dateCondition = req.body.queryResult.parameters.condition;
+                            filterRange = `Showing ${oppStatus} opportunities for ${dateCondition.replace("-"," ")}`;
                         }
                     }
 
@@ -275,7 +276,8 @@ module.exports = {
                             params.endDate = req.body.queryResult.parameters.endDate;
                             filterRange = "Showing " + oppStatus + " opportunities between " + helper.dateISOToStandardForm(params.startDate) + " to " + helper.dateISOToStandardForm(params.endDate);
                         } else if (req.body.queryResult.parameters.condition != "") {
-                            filterRange = `Showing ${oppStatus} opportunities for ${req.body.queryResult.parameters.condition}`;
+                            var dateCondition = req.body.queryResult.parameters.condition;
+                            filterRange = `Showing ${oppStatus} opportunities for ${dateCondition.replace("-"," ")}`;
                         }
                     }
 
