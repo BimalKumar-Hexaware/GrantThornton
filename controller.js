@@ -67,7 +67,7 @@ module.exports = {
                 console.log("inside gt.userquery");
                 var oppStatus = "";
                 if (req.body.queryResult.queryText == "userquery-event") {
-                    console.log("FROM EVENT");
+                    console.log("FROM EVENT d");
                     oppStatus = req.body.originalDetectIntentRequest.payload.data.text;
                     console.log("oppStatus",oppStatus);
                     res.json({
