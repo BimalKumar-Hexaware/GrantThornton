@@ -65,42 +65,11 @@ module.exports = {
                 break;
             case 'gt.userquery':
                 console.log("inside gt.userquery");
-                var oppStatus = req.body.queryResult.parameters.oppstatus;
-                tempOppstatus = oppStatus;
-                if (oppStatus == "") {
-                    console.log("status not provided");
-                    res.json({
-                        "fulfillmentMessages": [{
-                            "card": {
-                                "title": "What opportunity would you like to see?",
-                                "buttons": [
-                                    {
-                                        "text": "Open",
-                                        "postback": "open"
-                                    },
-                                    {
-                                        "text": "Closed",
-                                        "postback": "closed"
-                                    },
-                                    {
-                                        "text": "Won",
-                                        "postback": "won"
-                                    },
-                                    {
-                                        "text": "Lost",
-                                        "postback": "lost"
-                                    },
-                                    {
-                                        "text": "All",
-                                        "postback": "all"
-                                    }
-                                ]
-                            },
-                            "platform": "SKYPE"
-                        }]
-                    });
-                } else {
-                    console.log("status provided");
+                var oppStatus = "";
+                if (req.body.queryResult.queryText == "userquery-event") {
+                    console.log("FROM EVENT");
+                    oppStatus = req.body.originalDetectIntentRequest.payload.data.text;
+                    console.log("oppStatus",oppStatus);
                     res.json({
                         "followupEventInput": {
                             "name": "filter-event",
@@ -110,7 +79,56 @@ module.exports = {
                             "languageCode": "en-US"
                         }
                     });
+                } else {
+                    console.log("FROM UTTERANCE");
+                    oppStatus = req.body.queryResult.parameters.oppstatus;
+                    tempOppstatus = oppStatus;
+                    if (oppStatus == "") {
+                        console.log("status not provided");
+                        res.json({
+                            "fulfillmentMessages": [{
+                                "card": {
+                                    "title": "What opportunity would you like to see?",
+                                    "buttons": [
+                                        {
+                                            "text": "Open",
+                                            "postback": "open"
+                                        },
+                                        {
+                                            "text": "Closed",
+                                            "postback": "closed"
+                                        },
+                                        {
+                                            "text": "Won",
+                                            "postback": "won"
+                                        },
+                                        {
+                                            "text": "Lost",
+                                            "postback": "lost"
+                                        },
+                                        {
+                                            "text": "All",
+                                            "postback": "all"
+                                        }
+                                    ]
+                                },
+                                "platform": "SKYPE"
+                            }]
+                        });
+                    } else {
+                        console.log("status provided");
+                        res.json({
+                            "followupEventInput": {
+                                "name": "filter-event",
+                                "parameters": {
+                                    "oppstatus": oppStatus
+                                },
+                                "languageCode": "en-US"
+                            }
+                        });
+                    }
                 }
+
                 break;
             case "gt.userquery-applyfilter-date-supplydate":
                 var date = req.body.queryResult.parameters.date;
@@ -474,7 +492,7 @@ module.exports = {
             case "gt.combinedRevenueIntent-yes-supplyStatus":
                 var oppStatus = req.body.queryResult.parameters.oppstatus;
                 console.log("TYPE OS", typeof oppStatus);
-                console.log("opp tstua", oppStatus);                
+                console.log("opp tstua", oppStatus);
                 res.json({
                     "followupEventInput": {
                         "name": "userquery-event",
