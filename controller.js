@@ -40,26 +40,8 @@ module.exports = {
                 }).end();
                 break;
             case "gt.userquery-applyfilter":
-                res.json({
-                    "fulfillmentMessages": [
-                        {
-                            "card": {
-                                "title": "Would you like to see it based on",
-                                "buttons": [
-                                    {
-                                        "text": "Estimated Revenue",
-                                        "postback": "revenue"
-                                    },
-                                    {
-                                        "text": "Created Date",
-                                        "postback": "date"
-                                    }
-                                ]
-                            },
-                            "platform": "SKYPE"
-                        }
-                    ]
-                });
+                var statusPayload = helper.filterPayload();
+                res.json(statusPayload);
                 break;
             case 'gt.userquery':
                 console.log("inside gt.userquery");
@@ -75,7 +57,16 @@ module.exports = {
                                 "oppstatus": oppStatus
                             },
                             "languageCode": "en-US"
-                        }
+                        },
+                        "outputContexts": [
+                            {
+                                "name": session + "/contexts/selected_status",
+                                "lifespanCount": 5,
+                                "parameters": {
+                                    "oppstatus": oppStatus
+                                }
+                            }
+                        ]
                     });
                 } else {
                     console.log("FROM UTTERANCE");

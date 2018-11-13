@@ -154,7 +154,7 @@ var self = {
         };
         return payload;
     },
-    "opportunityMenu": function () {
+    "opportunityStatusMenu": function () {
         var payload = {
             "fulfillmentMessages": [{
                 "card": {
@@ -184,6 +184,29 @@ var self = {
                 },
                 "platform": "SKYPE"
             }]
+        };
+        return payload;
+    },
+    "filterPayload": function () {
+        var payload = {
+            "fulfillmentMessages": [
+                {
+                    "card": {
+                        "title": "Would you like to see it based on",
+                        "buttons": [
+                            {
+                                "text": "Estimated Revenue",
+                                "postback": "revenue"
+                            },
+                            {
+                                "text": "Created Date",
+                                "postback": "date"
+                            }
+                        ]
+                    },
+                    "platform": "SKYPE"
+                }
+            ]
         };
         return payload;
     },
