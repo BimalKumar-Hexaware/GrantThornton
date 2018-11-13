@@ -8,6 +8,8 @@ module.exports = {
         console.log("Dialogflow request body", JSON.stringify(req.body));
         console.log("DF Action", req.body.queryResult.action);
         var params = {};
+        var session = req.body.session;
+        console.log("SESSION", session);
         switch (req.body.queryResult.action) {
             case "input.welcome":
                 var menuPaylod = helper.mainMenuPayload(true);
@@ -25,7 +27,16 @@ module.exports = {
                             "oppstatus": oppStatus
                         },
                         "languageCode": "en-US"
-                    }
+                    },
+                    "outputContexts": [
+                        {
+                            "name": session + "/contexts/selected_status",
+                            "lifespanCount": 5,
+                            "parameters": {
+                                "oppstatus": oppStatus
+                            }
+                        }
+                    ]
                 }).end();
                 break;
             case 'gt.userquery':
@@ -42,7 +53,16 @@ module.exports = {
                                 "oppstatus": oppStatus
                             },
                             "languageCode": "en-US"
-                        }
+                        },
+                        "outputContexts": [
+                            {
+                                "name": session + "/contexts/selected_status",
+                                "lifespanCount": 5,
+                                "parameters": {
+                                    "oppstatus": oppStatus
+                                }
+                            }
+                        ]
                     });
                 } else {
                     console.log("FROM UTTERANCE");
