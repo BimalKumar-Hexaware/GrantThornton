@@ -72,13 +72,13 @@ module.exports = {
                     });
                 } else {
                     console.log("FROM UTTERANCE");
-                    oppStatus = req.body.queryResult.parameters.oppstatus;
-                    tempOppstatus = oppStatus;
                     if (oppStatus == "") {
                         console.log("status not provided");
                         var menuPaylod = helper.mainMenuPayload(false);
                         res.json(menuPaylod);
                     } else {
+                        oppStatus = req.body.queryResult.parameters.oppstatus;
+                        tempOppstatus = oppStatus;
                         console.log("status provided");
                         res.json({
                             "followupEventInput": {
