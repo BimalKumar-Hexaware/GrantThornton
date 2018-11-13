@@ -79,7 +79,7 @@ module.exports = {
                         var menuPaylod = helper.mainMenuPayload(false);
                         res.json(menuPaylod);
                     } else {
-                        
+
                         tempOppstatus = oppStatus;
                         console.log("status provided");
                         res.json({
@@ -113,7 +113,8 @@ module.exports = {
                         params = value.parameters;
                     }
                 });
-                var oppStatus = params.oppstatus;
+                console.log("tempst", tempOppstatus);
+                var oppStatus = (parameters.oppstatus == "") ? tempOppstatus : params.oppstatus;
                 console.log("Parameters", JSON.stringify(params));
                 if (date == "" || typeof date == "undefined") {
                     console.log("date not provided");
@@ -195,7 +196,7 @@ module.exports = {
                 console.log("Parameters", JSON.stringify(parameters));
                 var revenuerange = req.body.queryResult.parameters.ranges;
                 var number = req.body.queryResult.parameters.number;
-                var oppStatus = parameters.oppstatus;
+                var oppStatus = (parameters.oppstatus == "") ? tempOppstatus : parameters.oppstatus;
                 if (revenuerange != "") {
                     var rangeToWord;
                     switch (revenuerange) {
