@@ -184,7 +184,7 @@ module.exports = {
                 break;
             case "gt.userquery-applyfilter-revenue-ranges":
                 console.log("TEMP OPPSTATUS", tempOppstatus);
-                var oppStatus = tempOppstatus;
+
                 _.forEach(req.body.queryResult.outputContexts, function (value, key) {
                     if (_.includes(value.name, 'selected_status')) {
                         parameters = value.parameters;
@@ -193,7 +193,7 @@ module.exports = {
                 console.log("Parameters", JSON.stringify(parameters));
                 var revenuerange = req.body.queryResult.parameters.ranges;
                 var number = req.body.queryResult.parameters.number;
-
+                var oppStatus = parameters.oppstatus;
                 if (revenuerange != "") {
                     var rangeToWord;
                     switch (revenuerange) {
