@@ -17,6 +17,7 @@ module.exports = {
                 break;
             case "DefaultWelcomeIntent-applyfilter":
                 var oppStatus = req.body.queryResult.parameters.oppstatus;
+                tempOppstatus = oppStatus;
                 console.log("TYPE OS", typeof oppStatus);
                 console.log("opp tstua", oppStatus);
                 console.log("inside DefaultWelcomeIntent-applyfilter ans status is ", oppStatus);
@@ -49,6 +50,7 @@ module.exports = {
                 if (req.body.queryResult.queryText == "userquery-event") {
                     console.log("FROM EVENT d");
                     oppStatus = req.body.originalDetectIntentRequest.payload.data.text;
+                    tempOppstatus = oppStatus;
                     console.log("oppStatus", oppStatus);
                     res.json({
                         "followupEventInput": {
