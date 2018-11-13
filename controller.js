@@ -474,8 +474,17 @@ module.exports = {
             case "gt.combinedRevenueIntent-yes-supplyStatus":
                 var oppStatus = req.body.queryResult.parameters.oppstatus;
                 console.log("TYPE OS", typeof oppStatus);
-                console.log("opp tstua", oppStatus);
-                var textQuery = `show ${oppStatus} opportunities`;
+                console.log("opp tstua", oppStatus);                
+                res.json({
+                    "followupEventInput": {
+                        "name": "userquery-event",
+                        "parameters": {
+                            "oppstatus": oppStatus
+                        },
+                        "languageCode": "en-US"
+                    }
+                }).end();
+                /*var textQuery = `show ${oppStatus} opportunities`;
                 var sessionId = req.body.session.split('/').pop();
                 console.log("SESSIONID", sessionId);
                 return helper.queryDialogflow(textQuery, sessionId).then((result) => {
@@ -497,7 +506,7 @@ module.exports = {
                             "platform": "SKYPE"
                         }]
                     });
-                });
+                });*/
                 break;
         }
     }
