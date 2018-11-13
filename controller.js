@@ -39,6 +39,28 @@ module.exports = {
                     ]
                 }).end();
                 break;
+            case "gt.userquery-applyfilter":
+                res.json({
+                    "fulfillmentMessages": [
+                        {
+                            "card": {
+                                "title": "Would you like to see it based on",
+                                "buttons": [
+                                    {
+                                        "text": "Estimated Revenue",
+                                        "postback": "revenue"
+                                    },
+                                    {
+                                        "text": "Created Date",
+                                        "postback": "date"
+                                    }
+                                ]
+                            },
+                            "platform": "SKYPE"
+                        }
+                    ]
+                });
+                break;
             case 'gt.userquery':
                 console.log("inside gt.userquery");
                 var oppStatus = "";
