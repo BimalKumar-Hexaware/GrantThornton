@@ -168,6 +168,7 @@ module.exports = {
                     params.date = date;
                     filterRange = `Showing ${oppStatus} opportunities for the date ${helper.dateISOToStandardForm(date)}`;
                 }
+                params.oppstatus = (params.oppstatus == "") ? tempOppstatus : params.oppstatus;
                 console.log("PARAMS", JSON.stringify(params));
                 return helper.callDynamicsAPI(params, filterRange).then((result) => {
                     console.log("SKYPE RESPONSE", result);
@@ -194,7 +195,7 @@ module.exports = {
                         parameters = value.parameters;
                     }
                 });
-                console.log("Parameters", JSON.stringify(parameters));
+                
                 var revenuerange = req.body.queryResult.parameters.ranges;
                 var number = req.body.queryResult.parameters.number;
                 var oppStatus = (parameters.oppstatus == "") ? tempOppstatus : parameters.oppstatus;
@@ -227,6 +228,8 @@ module.exports = {
                     params.high = high;
                     filterRange = "Showing  " + oppStatus + " opportunities with revenue between " + parameters.low + " to " + parameters.high;
                 }
+                parameters.oppstatus = (parameters.oppstatus == "") ? tempOppstatus : parameters.oppstatus;
+                console.log("Parameters", JSON.stringify(parameters));
                 return helper.callDynamicsAPI(parameters, filterRange).then((result) => {
                     console.log("SKYPE RESPONSE", result);
                     res.json(result);
@@ -312,6 +315,7 @@ module.exports = {
                     params.date = date;
                     filterRange = `Showing ${oppStatus} opportunities for the date ${helper.dateISOToStandardForm(date)}`;
                 }
+                
                 console.log("PARAMS", JSON.stringify(params));
                 return helper.callDynamicsAPI(params, filterRange).then((result) => {
                     console.log("SKYPE RESPONSE", result);
