@@ -1,6 +1,7 @@
 var helper = require('./helper');
 var _ = require('lodash');
 var converter = require('number-to-words');
+var millify= require('millify');
 tempOppstatus = "";
 
 module.exports = {
@@ -220,12 +221,12 @@ module.exports = {
                             rangeToWord = "greater than or equal";
                             break;
                     }
-                    filterRange = "Showing " + oppStatus + " opportunities with revenue " + rangeToWord + " " + number;
+                    filterRange = "Showing " + oppStatus + " opportunities with revenue " + rangeToWord + " " + millify(number);
                 } else {
                     console.log("low high defined");
                     params.low = low;
                     params.high = high;
-                    filterRange = "Showing  " + oppStatus + " opportunities with revenue between " + parameters.low + " to " + parameters.high;
+                    filterRange = "Showing  " + oppStatus + " opportunities with revenue between " + millify(parameters.low) + " to " + millify(parameters.high);
                 }
                 parameters.oppstatus = (parameters.oppstatus == "") ? tempOppstatus : parameters.oppstatus;
                 console.log("Parameters", JSON.stringify(parameters));
@@ -352,7 +353,7 @@ module.exports = {
                     console.log("low high defined");
                     params.low = low;
                     params.high = high;
-                    filterRange = "Showing " + oppStatus + " opportunities with revenue between " + low + " to " + high;
+                    filterRange = "Showing " + oppStatus + " opportunities with revenue between " + millify(low) + " to " + millify(high);
                 } else {
                     console.log("range defined");
                     params.number = number;
@@ -378,7 +379,7 @@ module.exports = {
                             rangeToWord = "greater than or equal";
                             break;
                     }
-                    filterRange = "Showing " + oppStatus + " opportunities with revenue " + rangeToWord + " " + number;
+                    filterRange = "Showing " + oppStatus + " opportunities with revenue " + rangeToWord + " " + millify(number);
                 }
                 console.log("PARAMS", JSON.stringify(params));
                 return helper.callDynamicsAPI(params, filterRange).then((result) => {

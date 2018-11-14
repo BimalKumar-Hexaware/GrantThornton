@@ -59,7 +59,7 @@ var self = {
                         response.fulfillmentMessages.push({
                             "card": {
                                 "title": value.name,
-                                "subtitle": "Revenue: $ " + millify(value.estimatedvalue)
+                                "subtitle": "Revenue: $" + millify(value.estimatedvalue)
                             },
                             "platform": "SKYPE"
                         });
