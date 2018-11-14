@@ -138,7 +138,7 @@ module.exports = {
 
                     if ((params.startDate !== "" && typeof params.startDate !== "undefined") && (params.endDate !== "" && typeof params.endDate !== "undefined")) {
                         params.condition = 'inBetween';
-                        filterRange = "Showing" + oppStatus + " opportunities between " + helper.dateISOToStandardForm(params.startDate) + " to " + helper.dateISOToStandardForm(params.endDate);
+                        filterRange = "Showing " + oppStatus + " opportunities between " + helper.dateISOToStandardForm(params.startDate) + " to " + helper.dateISOToStandardForm(params.endDate);
                     } else if (monthName !== "" && typeof monthName !== "undefined") {
                         params.monthName = monthName;
                         params.condition = 'month';
@@ -285,7 +285,7 @@ module.exports = {
 
                     if ((params.startDate !== "" && typeof params.startDate !== "undefined") && (params.endDate !== "" && typeof params.endDate !== "undefined")) {
                         params.condition = 'inBetween';
-                        filterRange = "Showing" + oppStatus + " opportunities between " + helper.dateISOToStandardForm(params.startDate) + " to " + helper.dateISOToStandardForm(params.endDate);
+                        filterRange = "Showing " + oppStatus + " opportunities between " + helper.dateISOToStandardForm(params.startDate) + " to " + helper.dateISOToStandardForm(params.endDate);
                     } else if (monthName !== "" && typeof monthName !== "undefined") {
                         params.monthName = monthName;
                         params.condition = 'month';
