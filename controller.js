@@ -114,8 +114,6 @@ module.exports = {
                     }
                 });
                 console.log("tempst", tempOppstatus);
-                var oppStatus = (parameters.oppstatus == "") ? tempOppstatus : params.oppstatus;
-                console.log("Parameters", JSON.stringify(params));
                 if (date == "" || typeof date == "undefined") {
                     console.log("date not provided");
                     console.log("MONTH TYPE", typeof monthName);
