@@ -114,8 +114,7 @@ module.exports = {
                     }
                 });
                 console.log("tempst", tempOppstatus);
-                params.oppstatus = (params.oppstatus == "") ? tempOppstatus : params.oppstatus;
-                console.log("PARAMS", JSON.stringify(params));
+                var oppStatus = (params.oppstatus == "") ? tempOppstatus : params.oppstatus;
                 if (date == "" || typeof date == "undefined") {
                     console.log("date not provided");
                     console.log("MONTH TYPE", typeof monthName);
@@ -167,7 +166,9 @@ module.exports = {
                 } else {
                     params.date = date;
                     filterRange = `Showing ${oppStatus} opportunities for the date ${helper.dateISOToStandardForm(date)}`;
-                }                
+                }
+                params.oppstatus = (params.oppstatus == "") ? tempOppstatus : params.oppstatus;
+                console.log("PARAMS", JSON.stringify(params));
                 return helper.callDynamicsAPI(params, filterRange).then((result) => {
                     console.log("SKYPE RESPONSE", result);
                     res.json(result);
