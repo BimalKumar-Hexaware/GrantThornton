@@ -20,7 +20,7 @@ module.exports = {
                 res.json({
                     "fulfillmentMessages": [
                         {
-                            "telephonySynthesizeSpeech": {
+                            "text": {
                                 "ssml": "<speak>This is a test message</speak>"
                             },
                             "platform": 'TELEPHONY'
