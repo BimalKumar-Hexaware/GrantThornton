@@ -1,7 +1,7 @@
 var helper = require('./helper');
 var _ = require('lodash');
 var converter = require('number-to-words');
-var millify= require('millify');
+var millify = require('millify');
 tempOppstatus = "";
 
 module.exports = {
@@ -16,12 +16,12 @@ module.exports = {
                 var menuPaylod = helper.mainMenuPayload(true);
                 res.json(menuPaylod);
                 break;
-            case "TestIntent":
+            case "TestIntentTelephony":
                 res.json({
                     "fulfillmentMessages": [{
                         "text": {
                             "text": [
-                                filterRange
+                                "Hi test succeeded"
                             ]
                         }
                     }]
@@ -144,7 +144,7 @@ module.exports = {
                         } else if (req.body.queryResult.parameters.condition != "") {
                             console.log(oppStatus + " ," + tempOppstatus);
                             var dateCondition = req.body.queryResult.parameters.condition;
-                            filterRange = `Showing ${oppStatus} opportunities for ${dateCondition.replace("-"," ")}`;
+                            filterRange = `Showing ${oppStatus} opportunities for ${dateCondition.replace("-", " ")}`;
                         }
                     }
 
@@ -206,7 +206,7 @@ module.exports = {
                         parameters = value.parameters;
                     }
                 });
-                
+
                 var revenuerange = req.body.queryResult.parameters.ranges;
                 var number = req.body.queryResult.parameters.number;
                 var oppStatus = (parameters.oppstatus == "") ? tempOppstatus : parameters.oppstatus;
@@ -291,7 +291,7 @@ module.exports = {
                             filterRange = "Showing " + oppStatus + " opportunities between " + helper.dateISOToStandardForm(params.startDate) + " to " + helper.dateISOToStandardForm(params.endDate);
                         } else if (req.body.queryResult.parameters.condition != "") {
                             var dateCondition = req.body.queryResult.parameters.condition;
-                            filterRange = `Showing ${oppStatus} opportunities for ${dateCondition.replace("-"," ")}`;
+                            filterRange = `Showing ${oppStatus} opportunities for ${dateCondition.replace("-", " ")}`;
                         }
                     }
 
@@ -326,7 +326,7 @@ module.exports = {
                     params.date = date;
                     filterRange = `Showing ${oppStatus} opportunities for the date ${helper.dateISOToStandardForm(date)}`;
                 }
-                
+
                 console.log("PARAMS", JSON.stringify(params));
                 return helper.callDynamicsAPI(params, filterRange).then((result) => {
                     console.log("SKYPE RESPONSE", result);
