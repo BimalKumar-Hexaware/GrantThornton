@@ -21,9 +21,10 @@ module.exports = {
                     "fulfillmentMessages": [
                         {
                             "text": {
-                                "ssml": "<speak>This is a test message</speak>"
-                            },
-                            "platform": 'TELEPHONY'
+                                "text": [
+                                    "This is a test message"
+                                ]
+                            }
                         }
                     ]
                 });
