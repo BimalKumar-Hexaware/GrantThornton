@@ -24,7 +24,8 @@ module.exports = {
                                 "Hi test succeeded"
                             ]
                         }
-                    }]
+                    }],
+                    "platform": 'TELEPHONY',
                 });
                 break;
             case "DefaultWelcomeIntent-applyfilter":
