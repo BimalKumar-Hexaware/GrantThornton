@@ -24,7 +24,8 @@ module.exports = {
                                 "text": [
                                     "This is a test message"
                                 ]
-                            }
+                            },
+                            "platform": "GOOGLE_TELEPHONY"
                         }
                     ]
                 });
