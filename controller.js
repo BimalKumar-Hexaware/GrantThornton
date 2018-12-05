@@ -18,14 +18,14 @@ module.exports = {
                 break;
             case "TestIntentTelephony":
                 res.json({
-                    "fulfillmentMessages": [{
-                        "text": {
-                            "text": [
-                                "Hi test succeeded"
-                            ]
+                    "fulfillmentMessages": [
+                        {
+                            "telephonySynthesizeSpeech": {
+                                "ssml": "<speak>This is a test message</speak>"
+                            },
+                            "platform": 'TELEPHONY'
                         }
-                    }],
-                    "platform": 'TELEPHONY',
+                    ]
                 });
                 break;
             case "DefaultWelcomeIntent-applyfilter":
