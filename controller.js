@@ -16,6 +16,17 @@ module.exports = {
                 var menuPaylod = helper.mainMenuPayload(true);
                 res.json(menuPaylod);
                 break;
+            case "TestIntent":
+                res.json({
+                    "fulfillmentMessages": [{
+                        "text": {
+                            "text": [
+                                filterRange
+                            ]
+                        }
+                    }]
+                });
+                break;
             case "DefaultWelcomeIntent-applyfilter":
                 var oppStatus = req.body.queryResult.parameters.oppstatus;
                 tempOppstatus = oppStatus;
