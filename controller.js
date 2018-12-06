@@ -20,12 +20,10 @@ module.exports = {
                 res.json({
                     "fulfillmentMessages": [
                         {
-                            "text": {
-                                "text": [
-                                    "This is a test message"
-                                ]
-                            },
-                            "platform": "GOOGLE_TELEPHONY"
+                            "platform": "TELEPHONY",
+                            "telephonySynthesizeSpeech": {
+                                "text": "Triggered from phone"
+                            }
                         }
                     ]
                 });
