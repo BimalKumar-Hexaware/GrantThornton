@@ -11,7 +11,7 @@ var self = {
         return new Promise(function (resolve, reject) {
             var options = {
                 method: 'POST',
-                url: 'http://ec2-18-232-207-49.compute-1.amazonaws.com:7500/opportunities',
+                url: 'http://ec2-54-196-67-105.compute-1.amazonaws.com:7500/opportunities',
                 headers: {
                     'content-type': 'application/json'
                 },
@@ -92,7 +92,7 @@ var self = {
         return new Promise(function (resolve, reject) {
             var options = {
                 method: 'POST',
-                url: 'http://ec2-18-232-207-49.compute-1.amazonaws.com:7500/twitterFeed',
+                url: 'http://ec2-54-196-67-105.compute-1.amazonaws.com:7500/twitterFeed',
                 headers: {
                     'content-type': 'application/json'
                 },
