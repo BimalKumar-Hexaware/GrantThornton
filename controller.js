@@ -1,6 +1,7 @@
 var helper = require('./helper');
 var _ = require('lodash');
 var converter = require('number-to-words');
+var millify = require('millify');
 tempOppstatus = "";
 
 module.exports = {
@@ -14,6 +15,18 @@ module.exports = {
             case "input.welcome":
                 var menuPaylod = helper.mainMenuPayload(true);
                 res.json(menuPaylod);
+                break;
+            case "TestIntentTelephony":
+                res.json({
+                    "fulfillmentMessages": [
+                        {
+                            "platform": "TELEPHONY",
+                            "telephonySynthesizeSpeech": {
+                                "text": "Triggered from phone"
+                            }
+                        }
+                    ]
+                });
                 break;
             case "DefaultWelcomeIntent-applyfilter":
                 var oppStatus = req.body.queryResult.parameters.oppstatus;
@@ -114,8 +127,7 @@ module.exports = {
                     }
                 });
                 console.log("tempst", tempOppstatus);
-                var oppStatus = (parameters.oppstatus == "") ? tempOppstatus : params.oppstatus;
-                console.log("Parameters", JSON.stringify(params));
+                var oppStatus = (params.oppstatus == "") ? tempOppstatus : params.oppstatus;
                 if (date == "" || typeof date == "undefined") {
                     console.log("date not provided");
                     console.log("MONTH TYPE", typeof monthName);
@@ -133,13 +145,13 @@ module.exports = {
                         } else if (req.body.queryResult.parameters.condition != "") {
                             console.log(oppStatus + " ," + tempOppstatus);
                             var dateCondition = req.body.queryResult.parameters.condition;
-                            filterRange = `Showing ${oppStatus} opportunities for ${dateCondition.replace("-"," ")}`;
+                            filterRange = `Showing ${oppStatus} opportunities for ${dateCondition.replace("-", " ")}`;
                         }
                     }
 
                     if ((params.startDate !== "" && typeof params.startDate !== "undefined") && (params.endDate !== "" && typeof params.endDate !== "undefined")) {
                         params.condition = 'inBetween';
-                        filterRange = "Showing" + oppStatus + " opportunities between " + helper.dateISOToStandardForm(params.startDate) + " to " + helper.dateISOToStandardForm(params.endDate);
+                        filterRange = "Showing " + oppStatus + " opportunities between " + helper.dateISOToStandardForm(params.startDate) + " to " + helper.dateISOToStandardForm(params.endDate);
                     } else if (monthName !== "" && typeof monthName !== "undefined") {
                         params.monthName = monthName;
                         params.condition = 'month';
@@ -168,6 +180,7 @@ module.exports = {
                     params.date = date;
                     filterRange = `Showing ${oppStatus} opportunities for the date ${helper.dateISOToStandardForm(date)}`;
                 }
+                params.oppstatus = (params.oppstatus == "") ? tempOppstatus : params.oppstatus;
                 console.log("PARAMS", JSON.stringify(params));
                 return helper.callDynamicsAPI(params, filterRange).then((result) => {
                     console.log("SKYPE RESPONSE", result);
@@ -194,7 +207,7 @@ module.exports = {
                         parameters = value.parameters;
                     }
                 });
-                console.log("Parameters", JSON.stringify(parameters));
+
                 var revenuerange = req.body.queryResult.parameters.ranges;
                 var number = req.body.queryResult.parameters.number;
                 var oppStatus = (parameters.oppstatus == "") ? tempOppstatus : parameters.oppstatus;
@@ -220,13 +233,15 @@ module.exports = {
                             rangeToWord = "greater than or equal";
                             break;
                     }
-                    filterRange = "Showing " + oppStatus + " opportunities with revenue " + rangeToWord + " " + number;
+                    filterRange = "Showing " + oppStatus + " opportunities with revenue " + rangeToWord + " $" + millify(number);
                 } else {
                     console.log("low high defined");
                     params.low = low;
                     params.high = high;
-                    filterRange = "Showing  " + oppStatus + " opportunities with revenue between " + parameters.low + " to " + parameters.high;
+                    filterRange = "Showing  " + oppStatus + " opportunities with revenue between $" + millify(parameters.low) + " to $" + millify(parameters.high);
                 }
+                parameters.oppstatus = (parameters.oppstatus == "") ? tempOppstatus : parameters.oppstatus;
+                console.log("Parameters", JSON.stringify(parameters));
                 return helper.callDynamicsAPI(parameters, filterRange).then((result) => {
                     console.log("SKYPE RESPONSE", result);
                     res.json(result);
@@ -277,13 +292,13 @@ module.exports = {
                             filterRange = "Showing " + oppStatus + " opportunities between " + helper.dateISOToStandardForm(params.startDate) + " to " + helper.dateISOToStandardForm(params.endDate);
                         } else if (req.body.queryResult.parameters.condition != "") {
                             var dateCondition = req.body.queryResult.parameters.condition;
-                            filterRange = `Showing ${oppStatus} opportunities for ${dateCondition.replace("-"," ")}`;
+                            filterRange = `Showing ${oppStatus} opportunities for ${dateCondition.replace("-", " ")}`;
                         }
                     }
 
                     if ((params.startDate !== "" && typeof params.startDate !== "undefined") && (params.endDate !== "" && typeof params.endDate !== "undefined")) {
                         params.condition = 'inBetween';
-                        filterRange = "Showing" + oppStatus + " opportunities between " + helper.dateISOToStandardForm(params.startDate) + " to " + helper.dateISOToStandardForm(params.endDate);
+                        filterRange = "Showing " + oppStatus + " opportunities between " + helper.dateISOToStandardForm(params.startDate) + " to " + helper.dateISOToStandardForm(params.endDate);
                     } else if (monthName !== "" && typeof monthName !== "undefined") {
                         params.monthName = monthName;
                         params.condition = 'month';
@@ -312,6 +327,7 @@ module.exports = {
                     params.date = date;
                     filterRange = `Showing ${oppStatus} opportunities for the date ${helper.dateISOToStandardForm(date)}`;
                 }
+
                 console.log("PARAMS", JSON.stringify(params));
                 return helper.callDynamicsAPI(params, filterRange).then((result) => {
                     console.log("SKYPE RESPONSE", result);
@@ -349,7 +365,7 @@ module.exports = {
                     console.log("low high defined");
                     params.low = low;
                     params.high = high;
-                    filterRange = "Showing " + oppStatus + " opportunities with revenue between " + low + " to " + high;
+                    filterRange = "Showing " + oppStatus + " opportunities with revenue between $" + millify(low) + " to $" + millify(high);
                 } else {
                     console.log("range defined");
                     params.number = number;
@@ -375,7 +391,7 @@ module.exports = {
                             rangeToWord = "greater than or equal";
                             break;
                     }
-                    filterRange = "Showing " + oppStatus + " opportunities with revenue " + rangeToWord + " " + number;
+                    filterRange = "Showing " + oppStatus + " opportunities with revenue " + rangeToWord + " $" + millify(number);
                 }
                 console.log("PARAMS", JSON.stringify(params));
                 return helper.callDynamicsAPI(params, filterRange).then((result) => {

@@ -4,7 +4,7 @@
   "description": "This is a POC for the client GT, for Skype chatbot. Involves Microsoft Dynamics 365 and Linkedin Sales Navigator integration.",
   "main": "index.js",
   "scripts": {
-    "start": "forever index.js",
+    "start": "node index.js",
     "stop": "forever stop index.js",
     "devstart": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -19,6 +19,7 @@
     "google-oauth-jwt": "^0.2.0",
     "googleapis": "^35.0.0",
     "lodash": "^4.17.11",
+    "millify": "^2.0.1",
     "nodemon": "^1.18.4",
     "number-to-words": "^1.2.4",
     "request": "^2.88.0"

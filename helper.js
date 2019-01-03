@@ -4,6 +4,7 @@ var key = require('./grantthornton-f364a-6801e0b5dd81.json');
 const googleAuth = require('google-oauth-jwt');
 let { google } = require('googleapis');
 var async = require('async');
+var millify= require('millify');
 
 var self = {
     "callDynamicsAPI": function (params, filterRange) {
@@ -58,7 +59,7 @@ var self = {
                         response.fulfillmentMessages.push({
                             "card": {
                                 "title": value.name,
-                                "subtitle": "Revenue " + value.estimatedvalue
+                                "subtitle": "Revenue: $" + millify(value.estimatedvalue)
                             },
                             "platform": "SKYPE"
                         });
