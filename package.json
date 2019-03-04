@@ -4,8 +4,8 @@
   "description": "This is a POC for the client GT, for Skype chatbot. Involves Microsoft Dynamics 365 and Linkedin Sales Navigator integration.",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "stop": "forever stop index.js",
+    "start": "forever start -a -o ./out.log -e ./err.log --uid 'grant-thorton-skype' index.js",
+    "stop": "forever stop grant-thorton-skype",
     "devstart": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

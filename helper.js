@@ -12,7 +12,7 @@ var self = {
         return new Promise(function (resolve, reject) {
             var options = {
                 method: 'POST',
-                url: 'http://gtdynamics.us-east-1.elasticbeanstalk.com/opportunities',
+                url: 'http://ec2-3-84-25-177.compute-1.amazonaws.com:5500/opportunities',
                 headers: {
                     'content-type': 'application/json'
                 },
@@ -93,7 +93,7 @@ var self = {
         return new Promise(function (resolve, reject) {
             var options = {
                 method: 'POST',
-                url: 'http://gtdynamics.us-east-1.elasticbeanstalk.com/twitterFeed',
+                url: 'http://ec2-3-84-25-177.compute-1.amazonaws.com:5500/twitterFeed',
                 headers: {
                     'content-type': 'application/json'
                 },
